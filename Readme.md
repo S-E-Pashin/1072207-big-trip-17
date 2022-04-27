@@ -1,7 +1,7 @@
 # Проект «Большое путешествие»
 
-* Студент: [Сергей Евгеньевич](https://up.htmlacademy.ru/ecmascript/17/user/1072207).
-* Наставник: `Неизвестно`.
+* Студент: [Сергей Евгеньевич](https://htmlacademy.ru/profile/ss).
+* Наставник: [Артём Рудов](https://htmlacademy.ru/profile/id345377).
 
 ---
 
