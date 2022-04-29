@@ -1,36 +1,13 @@
-// import BoardView from '../view/board-view.js'; /*импорт превьюх*/
-// import SortView from '../view/sort-view.js'; /*импорт превьюх*/
-// import TaskListView from '../view/task-list-view.js'; /*импорт превьюх*/
-// import TaskView from '../view/task-view.js'; /*импорт превьюх*/
-// import TaskEditView from '../view/task-edit-view.js'; /*импорт превьюх*/
-// import LoadMoreButtonView from '../view/load-more-button-view.js'; /*импорт превьюх*/
+import FilterView from '../view/filter-view.js';
 import {render} from '../render.js';
 
-export default class BoardPresenter {
-  boardComponent = new BoardView(); /*Использует бейбл из за повторения*/
-  taskListComponent = new TaskListView();  /*Использует бейбл из за повторения todo класс пропертис? для повторяющихся свойств */
-
-  init = (container) => { /* Метод инициализурующий начало работы приложения. В него получаем контейнер куда нужно отрисовать todo наполнение приложения-сайта?. Он инициализируется и приложение начнет работать. */
-    this.container = container;
+export default class PresenterHeader {
+  filterBlock = new FilterView();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //   this.boardContainer = boardContainer;
-  //   // const boardComponent = new BoardView();  /*Равнозначно тому что выше. Вариант когда не использовались бы пропертис из бейбла */
-  //
-  //   render(this.boardComponent, this.boardContainer); /*Рисует доску */
+  init = (headerContainer) => { /* Метод инициализурующий начало работы приложения. В него получаем контейнер куда нужно отрисовать todo наполнение приложения-сайта?. Он инициализируется и приложение начнет работать. */
+    this.headerContainer = headerContainer;
+    render(this.filterBlock, this.headerContainer); /*В рендер передается (Обязательно с new) сначала что отрисовать а потом куда отрисовать это.*/
   //   // render(new boardComponent, this.boardContainer); /*Рисует доску Вариант когда не использовались бы пропертис из бейбла. Тут отличие что не используется this */
   //   render(new SortView(), this.boardComponent.getElement()); /*Рисует сортировку */
   //   render(this.taskListComponent, this.boardComponent.getElement()); /*Рисует лист задач/т.н. таск лист. */
@@ -41,21 +18,5 @@ export default class BoardPresenter {
   //   }
   //
   //   render(new LoadMoreButtonView(), this.boardComponent.getElement()); /*Рисует кнопку */
-  // };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  };
 }
