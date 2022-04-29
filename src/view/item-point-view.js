@@ -53,6 +53,6 @@ export default class CreateItemPointView {
   }
 
   removeElement() { /*Метод класса. Позволяет удалить этот элемент. Созданный ? TODO ?*/
-    this.element = null; /**/
+    this.element = null;
   }
 }
