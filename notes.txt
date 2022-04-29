@@ -86,9 +86,10 @@ sort родитель
 вью-
 
 
+git rebase master из ветки
+ошибка
 
-
-
+git push origin module1-task3 --force
 
 
 
