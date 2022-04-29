@@ -169,7 +169,6 @@ export default class CreateEditPointView {
     }
     return this.element;
   }
-
   removeElement() { /*Метод класса. Позволяет удалить этот элемент. Созданный ? TODO ?*/
     this.element = null; /**/
   }
