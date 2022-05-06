@@ -6,5 +6,6 @@ Thumbs.db
 *.log*
 node_modules/
 build/
+build
 notes.txt
 .run
