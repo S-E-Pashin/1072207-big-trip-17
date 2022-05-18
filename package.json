@@ -30,6 +30,7 @@
     "node": "16"
   },
   "dependencies": {
-    "webpack-dev-server": "4.8.1"
+    "webpack-dev-server": "4.8.1",
+    "dayjs": "1.11.1"
   }
 }

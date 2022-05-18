@@ -15,8 +15,11 @@ export default class PresenterMain {
     this.pointsModel = pointsModel;
     this.points = [...this.pointsModel.getPoints()]; /*TODO пересмотреть что за конструкция*/
 
+    // console.log(this.points[0]);
+
     render(this.SortBlock, this.mainContainer); /*В рендер передается (Обязательно с new) сначала что отрисовать а потом куда отрисовать это.*/
     render(this.TripList, this.mainContainer);
+    //todo обратить внимание что на этом этапе в перечень листа можно добавить первым элементом элемент добавления точки путем передачи его в массив листа с 0 номером.
     render(this.AddNewPoint, this.TripList.getElement()); /*Добавляю элемент в список-трип,лист*/
 
     for (let i = 0; i < this.points.length; i++) {

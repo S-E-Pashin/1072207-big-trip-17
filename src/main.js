@@ -14,3 +14,6 @@ const presenterMain = new PresenterMain();
 
 presenterHeader.init(siteHeaderElement); /*выполняется функция presenterHeader а именно его метод init(функция в функции с полученным в нее значением siteHeaderElement)*/
 presenterMain.init(siteTripEventsContainer, pointsModel); /*В контейнер добавляется перечень точек(Добавляется только в МАЙН т.к. наполнение пока только для МАЙН а именно pointModel)*/
+
+// console.log(pointsModel.points[2]);
+// console.log('PointsModel');
