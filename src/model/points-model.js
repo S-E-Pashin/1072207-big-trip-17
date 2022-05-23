@@ -7,4 +7,3 @@ export default class PointsModel {
   points = Array.from(numPointToModel, getDestination);
   getPoints = () => this.points;
 }
-

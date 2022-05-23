@@ -9,6 +9,9 @@ const getRandomInteger = (a = 0, b = 1) => {
   return Math.floor(lower + Math.random() * (upper - lower + 1));
 };
 
-const humanizePointDueDate = (dueDate) => dayjs(dueDate).format('D MMMM');
+export const humanizePointDueDateDay = (dueDate) => dayjs(dueDate).format('DD/MM/YY');
+export const humanizePointDueDateMmHh = (dueDate) => dayjs(dueDate).format('HH:mm');
 
-export {getRandomInteger, humanizePointDueDate};
+export {getRandomInteger,
+  // humanizePointDueDate
+};
