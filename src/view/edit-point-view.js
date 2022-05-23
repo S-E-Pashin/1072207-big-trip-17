@@ -23,7 +23,8 @@ const getListOffers = (offersArray) => {
 };
 
 const createEditPointTemplate = (point) => {
-  const {description, name, offers, pictureDescription, picturesSrc, type, price, date} = point;
+  // const {description, name, offers, pictureDescription, picturesSrc, type, price, date} = point; /*Оставляю т.к. скорее всего буду использовать со всеми данными позже*/
+  const {name, offers, price, date} = point;
   const listOffers = getListOffers(offers);
 
   return (`<li class="trip-events__item">
