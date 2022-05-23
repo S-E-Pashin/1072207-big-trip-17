@@ -1,5 +1,4 @@
 import {createElement} from '../render.js';
-// import {humanizePointDueDate} from '../utils'; /*экспорт человеческой даты созданной на основании dayjs*/
 
 const getListOffers = (offersArray) => {
   let stringOffers = '';
@@ -18,10 +17,8 @@ const getListOffers = (offersArray) => {
 };
 
 const createItemPointTemplate = (point) => {
-  // let listOffers = '1';
   const {description, name, offers, pictureDescription, picturesSrc, type, price, date} = point;
   const listOffers = getListOffers(offers);
-  // ${}
   return (
     `<li class="trip-events__item">
               <div class="event">
@@ -61,9 +58,9 @@ const createItemPointTemplate = (point) => {
 };
 
 export default class CreateItemPointView {
-  constructor(point) {/*? Почему это появилось?*/
-    this.point = point; /*? Почему это появилось?*/
-  }/*? Почему это появилось?*/
+  constructor(point) {
+    this.point = point;
+  }
 
   getTemplate() {
     return createItemPointTemplate(this.point); /*? Это то что было нужно=передача ссылки объекта точки, todo понять как это работает! Долго искал как передается, сделал по аналогии, пока не понятно.*/

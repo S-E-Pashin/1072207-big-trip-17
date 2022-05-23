@@ -26,7 +26,7 @@ export const localPointDate = [
 export const getDates = () => {
   const datesPoint = localPointDate[getRandomInteger(0, localPointDate.length - 1)];
   let humanDate = '';
-  if (datesPoint!== null) {
+  if (datesPoint !== null) {
     const dateFrom = datesPoint.date_from;
     const dateTo = datesPoint.date_to;
     const humanDateFromDDMMYY = humanizePointDueDateDay(dateFrom);
@@ -45,6 +45,5 @@ export const getDates = () => {
       },
     };
   }
-  // console.log(humanDate);
   return humanDate;
 };
