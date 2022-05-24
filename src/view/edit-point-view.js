@@ -1,32 +1,13 @@
 import {createElement} from '../render.js';
+import {getListOffers} from '../handlers/get-offers-arr-to-list';
+import {getListPictures} from '../handlers/get-pictures-arr-to-list';
 
-const getListOffers = (offersArray) => {
-  let stringOffers = '';
-  let oldOffers = '';
-  if(offersArray !== null) {
-    for (const offer of offersArray) {
-      const eventOfferTitle = (offer.title !== null) ? offer.title : '';
-      const eventOfferPrice = (offer.price !== null) ? offer.price : '';
-      const bodyOffersItem = `
-      <div class="event__offer-selector">
-        <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked="">
-        <label class="event__offer-label" for="event-offer-luggage-1">
-          <span class="event__offer-title cye-lm-tag">${eventOfferTitle}</span>+€&nbsp;<span class="event__offer-price cye-lm-tag">${eventOfferPrice}</span>
-        </label>
-      </div>`;
-      stringOffers = `${oldOffers}${bodyOffersItem}`;
-      oldOffers = stringOffers;
-    }
-    return stringOffers;
-  }
-  return stringOffers;
-};
 
 const createEditPointTemplate = (point) => {
-  // const {description, name, offers, pictureDescription, picturesSrc, type, price, date} = point; /*Оставляю т.к. скорее всего буду использовать со всеми данными позже*/
-  const {name, offers, price, date} = point;
+  const {name, offers, price, date, pictures, description} = point;
   const listOffers = getListOffers(offers);
-
+  const listPictures = getListPictures(pictures);
+  //todo Когда появится время. можно позже добавить условие/логику при которой по цепочке будет формироваться контент в зависимости от наличия наполнения. Заголовки появляться и пропадать.
   return (`<li class="trip-events__item">
               <form class="event event--edit" action="#" method="post">
                 <header class="event__header">
@@ -95,8 +76,8 @@ const createEditPointTemplate = (point) => {
                     </label>
                     <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${name}" list="destination-list-1">
                     <datalist id="destination-list-1">
-<!--                      <option value="Amsterdam"></option>-->
-<!--                      <option value="Geneva"></option>-->
+                      <option value="Amsterdam"></option>
+                      <option value="Geneva"></option>
                       <option value="Chamonix">;</option>
                     </datalist>
                   </div>
@@ -127,27 +108,23 @@ const createEditPointTemplate = (point) => {
                   <section class="event__section  event__section--offers">
                     <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
-                    <div class="event__available-offers">${listOffers}
+                    <div class="event__available-offers">
+                      ${listOffers}
+                    </div>
+                  </section>
 
-
-<!--                      <div class="event__offer-selector">-->
-<!--                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">-->
-<!--                        <label class="event__offer-label" for="event-offer-train-1">-->
-<!--                          <span class="event__offer-title cye-lm-tag">Travel by train</span>-->
-<!--                          +€&nbsp;-->
-<!--                          <span class="event__offer-price cye-lm-tag">40</span>-->
-<!--                        </label>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </section>-->
-
-<!--                  <section class="event__section  event__section&#45;&#45;destination">-->
-<!--                    <h3 class="event__section-title  event__section-title&#45;&#45;destination">Destination</h3>-->
-<!--                    <p class="event__destination-description cye-lm-tag">Chamonix-Mont-Blanc (usually shortened to Chamonix) is a resort area near the junction of France, Switzerland and Italy. At the base of Mont Blanc, the highest summit in the Alps, it's renowned for its skiing.</p>-->
-<!--                  </section>-->
-<!--                </section>-->
-<!--              </form>-->
-<!--            </li>-->` );
+                  <section class="event__section  event__section--destination">
+                    <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+                    <p class="event__destination-description cye-lm-tag">${description}</p>
+                    <div class="event__photos-container">
+                      <div class="event__photos-tape">
+                        ${listPictures}
+                      </div>
+                    </div>
+                  </section>
+                </section>
+              </form>
+            </li>` );
 };
 
 export default class CreateEditPointView {

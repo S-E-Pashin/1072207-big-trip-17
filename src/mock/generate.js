@@ -2,6 +2,7 @@ import {getRandomInteger} from '../utils.js';
 import {OFFERS} from './offers';
 import {getDates} from './date-point';
 import {getPrise} from './price-point';
+import {pictures} from './pictures-point';
 
 const descriptions = [
   'Первое описание',
@@ -54,6 +55,7 @@ export const getDestination  = () => ({
   name :`Имя точки назначения ${generateName()}`,
   picturesSrc :`http://picsum.photos/248/152?r=${generateNumber()}`,
   pictureDescription :`Описание изображения ${generateDescription()}`,
+  pictures: pictures(),
   offers: OFFERS.slice(0, getRandomInteger(0, OFFERS.length - 1)),
   price: getPrise(),
   date: getDates(),

@@ -1,25 +1,26 @@
 import {createElement} from '../render.js';
 
 const getListOffers = (offersArray) => {
-  let stringOffers = '';
-  let oldOffers = '';
-  if(offersArray !== null) {
-    for (const offer of offersArray) {
+  if (offersArray !== null) {
+    const offersList = offersArray.map((offer) => {
       const eventOfferTitle = (offer.title !== null) ? offer.title : '';
       const eventOfferPrice = (offer.price !== null) ? offer.price : '';
-      const bodyOffersItem = `<li class="event__offer"><span class="event__offer-title cye-lm-tag">${eventOfferTitle}</span>+€&nbsp;<span class="event__offer-price cye-lm-tag">${eventOfferPrice}</span></li>`;
-      stringOffers = `${oldOffers}${bodyOffersItem}`;
-      oldOffers = stringOffers;
-    }
-    return stringOffers;
+      const bodyOffersItem = `
+        <li class="event__offer">
+          <span class="event__offer-title cye-lm-tag">${eventOfferTitle}</span>+€&nbsp;
+          <span class="event__offer-price cye-lm-tag">${eventOfferPrice}</span>
+        </li>`;
+
+      return bodyOffersItem;
+    }).join('\n');
+    return offersList;
   }
-  return stringOffers;
 };
 
 const createItemPointTemplate = (point) => {
-  // const {description, name, offers, pictureDescription, picturesSrc, type, price, date} = point; /*Оставляю т.к. скорее всего буду использовать со всеми данными позже*/
   const {name, offers, pictureDescription, picturesSrc, price, date} = point;
   const listOffers = getListOffers(offers);
+
   return (
     `<li class="trip-events__item">
               <div class="event">
