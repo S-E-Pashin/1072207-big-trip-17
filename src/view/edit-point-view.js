@@ -8,7 +8,8 @@ const createEditPointTemplate = (point) => {
   const listOffers = getListOffers(offers);
   const listPictures = getListPictures(pictures);
   //todo Когда появится время. можно позже добавить условие/логику при которой по цепочке будет формироваться контент в зависимости от наличия наполнения. Заголовки появляться и пропадать.
-  return (`<li class="trip-events__item">
+  return (
+    `<li class="trip-events__item">
               <form class="event event--edit" action="#" method="post">
                 <header class="event__header">
                   <div class="event__type-wrapper">
