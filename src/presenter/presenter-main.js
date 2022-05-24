@@ -25,9 +25,7 @@ export default class PresenterMain {
     // render(this.AddNewPoint, this.TripList.getElement()); /*Добавляю элемент в список-трип,лист*/
 
     for (let i = 0; i < this.points.length; i++) { /*0й элемент зарезервирован под точку в отображении редактирования.*/
-      // console.log(this.points[i]);
       if (i <= 0) {
-        // console.log(this.points[i]);
         render(new CreateEditPointView(this.points[i]), this.TripList.getElement()); /*Добавляю элемент открытый для редактирования*/
       } else if (i > 0) {
         render(new CreateItemPointView(this.points[i]), this.TripList.getElement());
