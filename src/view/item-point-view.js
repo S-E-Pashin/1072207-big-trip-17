@@ -1,23 +1,43 @@
 import {createElement} from '../render.js';
 
-const createItemPointTemplate = () => (
-  `<li class="trip-events__item">
+const getListOffers = (offersArray) => {
+  if (offersArray !== null) {
+    const offersList = offersArray.map((offer) => {
+      const eventOfferTitle = (offer.title !== null) ? offer.title : '';
+      const eventOfferPrice = (offer.price !== null) ? offer.price : '';
+      const bodyOffersItem = `
+        <li class="event__offer">
+          <span class="event__offer-title cye-lm-tag">${eventOfferTitle}</span>+€&nbsp;
+          <span class="event__offer-price cye-lm-tag">${eventOfferPrice}</span>
+        </li>`;
+
+      return bodyOffersItem;
+    }).join('\n');
+    return offersList;
+  }
+};
+
+const createItemPointTemplate = (point) => {
+  const {name, offers, pictureDescription, picturesSrc, price, date} = point;
+  const listOffers = getListOffers(offers);
+
+  return (
+    `<li class="trip-events__item">
               <div class="event">
-                <time class="event__date" datetime="2019-03-18">MAR 18</time>
+                <time class="event__date" datetime="2019-03-18"></time>
                 <div class="event__type">
-                  <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
+                  <img class="event__type-icon" width="42" height="42" src="${picturesSrc}" alt="${pictureDescription}">
                 </div>
-                <h3 class="event__title">Taxi Amsterdam</h3>
+                <h3 class="event__title">${name}</h3>
                 <div class="event__schedule">
                   <p class="event__time cye-lm-tag">
-                    <time class="event__start-time" datetime="2019-03-18T10:30">10:30</time>
+                    <time class="event__start-time" datetime="2019-03-18T10:30">${date.from.hhmm}</time>
                     —
-                    <time class="event__end-time" datetime="2019-03-18T11:00">11:00</time>
+                    <time class="event__end-time" datetime="2019-03-18T11:00">${date.to.hhmm}</time>
                   </p>
-                  <p class="event__duration cye-lm-tag">30M</p>
                 </div>
                 <p class="event__price cye-lm-tag">
-                  €&nbsp;<span class="event__price-value cye-lm-tag">20</span>
+                  €&nbsp;<span class="event__price-value cye-lm-tag">${price.base}</span>
                 </p>
                 <h4 class="visually-hidden">Offers:</h4>
                 <ul class="event__selected-offers">
@@ -25,7 +45,7 @@ const createItemPointTemplate = () => (
                     <span class="event__offer-title cye-lm-tag">Order Uber</span>
                     +€&nbsp;
                     <span class="event__offer-price cye-lm-tag">20</span>
-                  </li>
+                  </li>${listOffers}
                 </ul>
                 <button class="event__favorite-btn event__favorite-btn--active" type="button">
                   <span class="visually-hidden cye-lm-tag">Add to favorite</span>
@@ -36,13 +56,16 @@ const createItemPointTemplate = () => (
                 <button class="event__rollup-btn" type="button">
                   <span class="visually-hidden cye-lm-tag">Open event</span>
                 </button>
-              </div>
-            </li>`
-);
+              </div>            </li>`  );
+};
 
 export default class CreateItemPointView {
+  constructor(point) {
+    this.point = point;
+  }
+
   getTemplate() {
-    return createItemPointTemplate();
+    return createItemPointTemplate(this.point); /*? Это то что было нужно=передача ссылки объекта точки, todo понять как это работает! Долго искал как передается, сделал по аналогии, пока не понятно.*/
   }
 
   getElement() { /*Метод класса. Метод позволяет на основе шаблона создать DOM элемент. Импортирует что то из render.js*/

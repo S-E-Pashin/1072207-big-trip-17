@@ -1,7 +1,15 @@
 import {createElement} from '../render.js';
+import {getListOffers} from '../handlers/get-offers-arr-to-list';
+import {getListPictures} from '../handlers/get-pictures-arr-to-list';
 
-const createEditPointTemplate = () => (
-  `<li class="trip-events__item">
+
+const createEditPointTemplate = (point) => {
+  const {name, offers, price, date, pictures, description} = point;
+  const listOffers = getListOffers(offers);
+  const listPictures = getListPictures(pictures);
+  //todo Когда появится время. можно позже добавить условие/логику при которой по цепочке будет формироваться контент в зависимости от наличия наполнения. Заголовки появляться и пропадать.
+  return (
+    `<li class="trip-events__item">
               <form class="event event--edit" action="#" method="post">
                 <header class="event__header">
                   <div class="event__type-wrapper">
@@ -67,20 +75,20 @@ const createEditPointTemplate = () => (
                     <label class="event__label  event__type-output" for="event-destination-1">
                       Flight
                     </label>
-                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Chamonix" list="destination-list-1">
+                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${name}" list="destination-list-1">
                     <datalist id="destination-list-1">
                       <option value="Amsterdam"></option>
                       <option value="Geneva"></option>
-                      <option value="Chamonix"></option>
+                      <option value="Chamonix">;</option>
                     </datalist>
                   </div>
 
                   <div class="event__field-group  event__field-group--time">
                     <label class="visually-hidden" for="event-start-time-1">From</label>
-                    <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="18/03/19 12:25">
+                    <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${date.from.ddmmyy} ${date.from.hhmm}">
                     —
                     <label class="visually-hidden" for="event-end-time-1">To</label>
-                    <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="18/03/19 13:35">
+                    <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${date.to.ddmmyy} ${date.to.hhmm}">
                   </div>
 
                   <div class="event__field-group  event__field-group--price">
@@ -88,7 +96,7 @@ const createEditPointTemplate = () => (
                       <span class="visually-hidden cye-lm-tag">Price</span>
                       €
                     </label>
-                    <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="160">
+                    <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${price.base}">
                   </div>
 
                   <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
@@ -102,65 +110,31 @@ const createEditPointTemplate = () => (
                     <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
                     <div class="event__available-offers">
-                      <div class="event__offer-selector">
-                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked="">
-                        <label class="event__offer-label" for="event-offer-luggage-1">
-                          <span class="event__offer-title cye-lm-tag">Add luggage</span>
-                          +€&nbsp;
-                          <span class="event__offer-price cye-lm-tag">50</span>
-                        </label>
-                      </div>
-
-                      <div class="event__offer-selector">
-                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-1" type="checkbox" name="event-offer-comfort" checked="">
-                        <label class="event__offer-label" for="event-offer-comfort-1">
-                          <span class="event__offer-title cye-lm-tag">Switch to comfort</span>
-                          +€&nbsp;
-                          <span class="event__offer-price cye-lm-tag">80</span>
-                        </label>
-                      </div>
-
-                      <div class="event__offer-selector">
-                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-meal-1" type="checkbox" name="event-offer-meal">
-                        <label class="event__offer-label" for="event-offer-meal-1">
-                          <span class="event__offer-title cye-lm-tag">Add meal</span>
-                          +€&nbsp;
-                          <span class="event__offer-price cye-lm-tag">15</span>
-                        </label>
-                      </div>
-
-                      <div class="event__offer-selector">
-                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-seats-1" type="checkbox" name="event-offer-seats">
-                        <label class="event__offer-label" for="event-offer-seats-1">
-                          <span class="event__offer-title cye-lm-tag">Choose seats</span>
-                          +€&nbsp;
-                          <span class="event__offer-price cye-lm-tag">5</span>
-                        </label>
-                      </div>
-
-                      <div class="event__offer-selector">
-                        <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
-                        <label class="event__offer-label" for="event-offer-train-1">
-                          <span class="event__offer-title cye-lm-tag">Travel by train</span>
-                          +€&nbsp;
-                          <span class="event__offer-price cye-lm-tag">40</span>
-                        </label>
-                      </div>
+                      ${listOffers}
                     </div>
                   </section>
 
                   <section class="event__section  event__section--destination">
                     <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-                    <p class="event__destination-description cye-lm-tag">Chamonix-Mont-Blanc (usually shortened to Chamonix) is a resort area near the junction of France, Switzerland and Italy. At the base of Mont Blanc, the highest summit in the Alps, it's renowned for its skiing.</p>
+                    <p class="event__destination-description cye-lm-tag">${description}</p>
+                    <div class="event__photos-container">
+                      <div class="event__photos-tape">
+                        ${listPictures}
+                      </div>
+                    </div>
                   </section>
                 </section>
               </form>
-            </li>`
-);
+            </li>` );
+};
 
 export default class CreateEditPointView {
+  constructor(point) { /*TODO !!! когда вызывается класс через new SomeClass то ему могут быть переданы данные, которые экземпляр класса получит в конструкторе, который сконструирует экземпляр класса и положит его в некую переменную, поэтому этот метод и называется конструктор.*/
+    this.point = point;
+  }
+
   getTemplate() { /*Метод класса. Метод что бы получить шаблон разметки. Все методы кроме конструктора придумываются самостоятельно.*/
-    return createEditPointTemplate(); /**/
+    return createEditPointTemplate(this.point); /**/
   }
 
   getElement() { /*Метод класса. Метод позволяет на основе шаблона создать DOM элемент. Импортирует что то из render.js*/
