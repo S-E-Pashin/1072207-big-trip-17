@@ -13,7 +13,7 @@ const createElement = (template) => {
 };
 
 const render = (component, container, place = RenderPosition.BEFOREEND) => {
-  const element = component.getElement();
+  const element = component.element; /*вызывается get element находящийся в классе.*/
 
   switch (place) {
     case RenderPosition.BEFOREBEGIN:

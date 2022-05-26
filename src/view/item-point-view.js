@@ -60,22 +60,25 @@ const createItemPointTemplate = (point) => {
 };
 
 export default class CreateItemPointView {
+  #point = null;
+  #element = null;
+
   constructor(point) {
-    this.point = point;
+    this.#point = point;
   }
 
-  getTemplate() {
-    return createItemPointTemplate(this.point); /*? Это то что было нужно=передача ссылки объекта точки, todo понять как это работает! Долго искал как передается, сделал по аналогии, пока не понятно.*/
+  get template() {
+    return createItemPointTemplate(this.#point); /*? Это то что было нужно=передача ссылки объекта точки, todo понять как это работает! Долго искал как передается, сделал по аналогии, пока не понятно.*/
   }
 
-  getElement() { /*Метод класса. Метод позволяет на основе шаблона создать DOM элемент. Импортирует что то из render.js*/
-    if (!this.element) { /*Вольная интерпретация сингл-тон или по другому условие при котором не будут делаться дубли. Не совсем понятно. todo Как это работает? */
-      this.element = createElement(this.getTemplate()); /*Функция создающая по шаблону элемент. Вызываю функцию, передаю в нее шаблонную строчку с html а она возвращает DOM элемент todo возвращает или создает на странице? Необходимо проверить.. Находится в render.js*/
+  get element() { /*Метод класса. Метод позволяет на основе шаблона создать DOM элемент. Импортирует что то из render.js*/
+    if (!this.#element) { /*Вольная интерпретация сингл-тон или по другому условие при котором не будут делаться дубли. Не совсем понятно. todo Как это работает? */
+      this.#element = createElement(this.template); /*Функция создающая по шаблону элемент. Вызываю функцию, передаю в нее шаблонную строчку с html а она возвращает DOM элемент todo возвращает или создает на странице? Необходимо проверить.. Находится в render.js*/
     }
-    return this.element;
+    return this.#element;
   }
 
   removeElement() { /*Метод класса. Позволяет удалить этот элемент. Созданный ? TODO ?*/
-    this.element = null;
+    this.#element = null;
   }
 }

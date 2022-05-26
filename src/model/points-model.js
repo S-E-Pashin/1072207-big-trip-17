@@ -4,6 +4,9 @@ import {getDestination} from '../mock/generate';
 const numPointToModel = {length: 5}; /*todo обратить внимание как используется Array.from с длинной массива/коллекции, пока не понятно как именно работает.*/
 
 export default class PointsModel {
-  points = Array.from(numPointToModel, getDestination);
-  getPoints = () => this.points;
+
+  #points = Array.from(numPointToModel, getDestination); /*getDestination не трогаю так как предполагаю что возможно получу объект снаружи. Либо буду обрабатывать гетером в теле.*/
+  get points() {
+    return this.#points;
+  }
 }
