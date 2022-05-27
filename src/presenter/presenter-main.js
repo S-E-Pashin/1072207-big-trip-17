@@ -13,6 +13,11 @@ export default class PresenterMain {
   #pointsModel = null;
   #points = [];
 
+  #renderPointToTripList = (point) => { /*Функция, создает компонент с разметкой на основании данных и отрисовывает/рендерит его в перечень точек маршрутов, приватная, может быть вызвана только в данном классе.*/
+    const pointComponent = new CreateEditPointView(point);
+    render(pointComponent, this.#TripList.element);
+  };
+
   init = (mainContainer, pointsModel) => { /* Метод инициализурующий начало работы приложения. В него получаем контейнер куда нужно отрисовать todo наполнение приложения-сайта?. Он инициализируется и приложение начнет работать. */
     this.#mainContainer = mainContainer; /*куда передаю*/
     this.#pointsModel = pointsModel;
@@ -22,12 +27,10 @@ export default class PresenterMain {
     //todo обратить внимание что на этом этапе в перечень листа можно добавить первым элементом элемент добавления точки путем передачи его в массив листа с 0 номером.
     // render(this.AddNewPoint, this.TripList.getElement()); /*Добавляю элемент в список-трип,лист*/
 
-    for (let i = 0; i < this.#points.length; i++) { /*0й элемент зарезервирован под точку в отображении редактирования.*/
-      if (i <= 0) {
-        render(new CreateEditPointView(this.#points[i]), this.#TripList.element); /*Добавляю элемент открытый для редактирования*/
-      } else if (i > 0) {
-        render(new CreateItemPointView(this.#points[i]), this.#TripList.element);
-      }
+
+    for (let i = 0; i < this.#points.length; i++) {
+      // render(new CreateEditPointView(this.#points[i]), this.#TripList.element); /*Добавляет элемент открытый для редактирования*/
+      this.#renderPointToTripList(this.#points[i]); /*Вызов функции рендера на каждой точке из массива.*/
     }
   };
 }
