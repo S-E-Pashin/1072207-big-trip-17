@@ -74,6 +74,8 @@ export default class PresenterMain {
     };
     getAddEventListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
 
+
+
     // pointEditComponent.element.querySelector('.event--edit').addEventListener('click', (evt) => {
     //   evt.preventDefault();
     //   replaceFormToPoint();
