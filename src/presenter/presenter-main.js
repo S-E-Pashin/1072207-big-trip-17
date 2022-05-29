@@ -13,11 +13,6 @@ export default class PresenterMain {
   #pointsModel = null;
   #points = [];
 
-  #renderPointToTripList = (point) => { /*Функция, создает компонент с разметкой на основании данных и отрисовывает/рендерит его в перечень точек маршрутов, приватная, может быть вызвана только в данном классе.*/
-    const pointComponent = new CreateEditPointView(point);
-    render(pointComponent, this.#TripList.element);
-  };
-
   init = (mainContainer, pointsModel) => { /* Метод инициализурующий начало работы приложения. В него получаем контейнер куда нужно отрисовать todo наполнение приложения-сайта?. Он инициализируется и приложение начнет работать. */
     this.#mainContainer = mainContainer; /*куда передаю*/
     this.#pointsModel = pointsModel;
@@ -33,4 +28,55 @@ export default class PresenterMain {
       this.#renderPointToTripList(this.#points[i]); /*Вызов функции рендера на каждой точке из массива.*/
     }
   };
+
+  #renderPointToTripList = (point) => { /*Функция, создает компонент с разметкой на основании данных и отрисовывает/рендерит его в перечень точек маршрутов, приватная, может быть вызвана только в данном классе.*/
+    const pointComponent = new CreateItemPointView(point);
+    const pointEditComponent = new CreateEditPointView(point);
+
+
+    // console.log(pointEditComponent.element);
+
+    const replacePointToForm = () => { /*Функция изменяющая визуал точки на форму*/
+      // console.log(this.#TripList.element);
+      this.#TripList.element.replaceChild(pointEditComponent.element, pointComponent.element);/*Что вставляю, вместо чего*/
+      // getAddEventListenerToPointFormEdit();
+    };
+    const replaceFormToPoint = () => {/*Функция изменяющая визуал формы на точку*/
+      this.#TripList.element.replaceChild(pointComponent.element, pointEditComponent.element);
+    };
+
+    // pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+    //   replacePointToForm();
+    // });
+    const getAddEventListenerToPointFormEdit = () => {
+      // const formBtn = pointComponent.element.querySelector('.event--edit');
+
+      pointEditComponent.element.querySelector('.event__save-btn').addEventListener('click', (evt) => {
+        evt.preventDefault();
+        replaceFormToPoint();
+      });
+    };
+
+    const getAddEventListenerToPointEdit = () => { /*Ф добавляющая слушатель для кнопки редактирования которая в свою очередь ни нажатии изменит отображение с точки на форму для данной точки.*/
+      const pointBtn = pointComponent.element.querySelector('.event__rollup-btn');
+
+      pointBtn.addEventListener('click', () => {
+        replacePointToForm();
+        getAddEventListenerToPointFormEdit();
+      });
+    };
+    getAddEventListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
+
+    // pointEditComponent.element.querySelector('.event--edit').addEventListener('click', (evt) => {
+    //   evt.preventDefault();
+    //   replaceFormToPoint();
+    // });
+
+    // Перенес от сюда функцию добавления слушателя что бы запускать ее при формировании вместо точки - формы.
+    // getAddEventListenerToPointFormEdit();/* todo предполагаю что ее необходимо размещать /запускать в момент отрисовки формы НО... */
+
+    render(pointComponent, this.#TripList.element);
+  };
 }
+
+
