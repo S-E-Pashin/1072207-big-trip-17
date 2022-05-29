@@ -41,10 +41,18 @@ export default class PresenterMain {
       this.#TripList.element.replaceChild(pointEditComponent.element, pointComponent.element);/*Что вставляю, вместо чего*/
       // getAddEventListenerToPointFormEdit();
     };
+
     const replaceFormToPoint = () => {/*Функция изменяющая визуал формы на точку*/
       this.#TripList.element.replaceChild(pointComponent.element, pointEditComponent.element);
     };
 
+    const onEscKeyDown = (evt) => {
+      if (evt.key === 'Escape' || evt.key === 'Esc') {
+        evt.preventDefault();
+        replaceFormToPoint();
+        document.removeEventListener('keydown', onEscKeyDown);
+      }
+    };
     // pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
     //   replacePointToForm();
     // });
@@ -54,6 +62,7 @@ export default class PresenterMain {
       pointEditComponent.element.querySelector('.event__save-btn').addEventListener('click', (evt) => {
         evt.preventDefault();
         replaceFormToPoint();
+        document.removeEventListener('keydown', onEscKeyDown);
       });
     };
 
@@ -63,6 +72,7 @@ export default class PresenterMain {
       pointBtn.addEventListener('click', () => {
         replacePointToForm();
         getAddEventListenerToPointFormEdit();
+        document.addEventListener('keydown', onEscKeyDown);
       });
     };
     getAddEventListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
