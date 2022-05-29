@@ -33,9 +33,6 @@ export default class PresenterMain {
     const pointComponent = new CreateItemPointView(point);
     const pointEditComponent = new CreateEditPointView(point);
 
-
-    // console.log(pointEditComponent.element);
-
     const replacePointToForm = () => { /*Функция изменяющая визуал точки на форму*/
       // console.log(this.#TripList.element);
       this.#TripList.element.replaceChild(pointEditComponent.element, pointComponent.element);/*Что вставляю, вместо чего*/
