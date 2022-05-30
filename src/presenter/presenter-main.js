@@ -43,19 +43,15 @@ export default class PresenterMain {
       this.#TripList.element.replaceChild(pointComponent.element, pointEditComponent.element);
     };
 
-    const onEscKeyDown = (evt) => {
+    const onEscKeyDown = (evt) => {/*Закроет окно при нажатии ЭСК, отмена дефолта, замена отображения формы на точку.Снятие слушателя.*/
       if (evt.key === 'Escape' || evt.key === 'Esc') {
         evt.preventDefault();
         replaceFormToPoint();
         document.removeEventListener('keydown', onEscKeyDown);
       }
     };
-    // pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
-    //   replacePointToForm();
-    // });
-    const getAddEventListenerToPointFormEdit = () => {
-      // const formBtn = pointComponent.element.querySelector('.event--edit');
 
+    const getAddEventListenerToPointFormEdit = () => {
       pointEditComponent.element.querySelector('.event__save-btn').addEventListener('click', (evt) => {
         evt.preventDefault();
         replaceFormToPoint();
@@ -73,17 +69,6 @@ export default class PresenterMain {
       });
     };
     getAddEventListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
-
-
-
-    // pointEditComponent.element.querySelector('.event--edit').addEventListener('click', (evt) => {
-    //   evt.preventDefault();
-    //   replaceFormToPoint();
-    // });
-
-    // Перенес от сюда функцию добавления слушателя что бы запускать ее при формировании вместо точки - формы.
-    // getAddEventListenerToPointFormEdit();/* todo предполагаю что ее необходимо размещать /запускать в момент отрисовки формы НО... */
-
     render(pointComponent, this.#TripList.element);
   };
 }
