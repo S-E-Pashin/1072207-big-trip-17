@@ -52,7 +52,7 @@ export default class PresenterMain {
     };
 
     const getAddEventListenerToPointFormEdit = () => {
-      pointEditComponent.element.querySelector('.event__save-btn').addEventListener('click', (evt) => {
+      pointEditComponent.element.querySelector('.event--edit').addEventListener('submit', (evt) => {
         evt.preventDefault();
         replaceFormToPoint();
         document.removeEventListener('keydown', onEscKeyDown);
