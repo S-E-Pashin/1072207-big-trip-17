@@ -42,48 +42,85 @@ export default class PresenterMain {
     };
 
     const pointFormEditClose = () => { /*Функция закрытия окна по нажатию на стрелку вверх*/
-      replaceFormToPoint();
-      document.removeEventListener('keydown', onEscKeyDown);
-      pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditClose);
-      getAddEventListenerToPointEdit();
+      // replaceFormToPoint();
+      // document.removeEventListener('keydown', onEscKeyDown);
+      // pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditClose);
+      // getAddEventListenerToPointEdit();
     };
 
     const pointFormEditSubmit = (evt) => {
-      evt.preventDefault();
-      replaceFormToPoint();
-      document.removeEventListener('keydown', onEscKeyDown);
-      pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditClose);
-      pointEditComponent.element.querySelector('.event--edit').removeEventListener('submit', pointFormEditSubmit);
-      getAddEventListenerToPointEdit();
+      // console.log(evt);
+      // evt.preventDefault();
+      // replaceFormToPoint();
+      // document.removeEventListener('keydown', onEscKeyDown);
+      // pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditClose);
+      // pointEditComponent.element.querySelector('.event--edit').removeEventListener('submit', pointFormEditSubmit);
+      // getAddEventListenerToPointEdit();
     };
 
     //Функция закрытия
     const onEscKeyDown = (evt) => {/*Закроет окно при нажатии ЭСК, отмена дефолта, замена отображения формы на точку.Снятие слушателя.*/
       if (evt.key === 'Escape' || evt.key === 'Esc') {
-        evt.preventDefault();
-        replaceFormToPoint();
-        document.removeEventListener('keydown', onEscKeyDown);
-        pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditClose);
-        getAddEventListenerToPointEdit();
+        // evt.preventDefault();
+        // replaceFormToPoint();
+        // document.removeEventListener('keydown', onEscKeyDown);
+        // pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditClose);
+        // getAddEventListenerToPointEdit();
       }
     };
 
-    const pointFormEditOpen = () => {
-      replacePointToForm();
-      pointComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditOpen);
-      pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', pointFormEditClose);
-      pointEditComponent.element.querySelector('.event--edit').addEventListener('submit', pointFormEditSubmit);
-      document.addEventListener('keydown', onEscKeyDown);
+    const closeForm = (evt) => { /*вот функция которая должна все общие действия по закрытию формы. */
+
+      // pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', pointFormEditOpen);
+      // console.log(evt.target.className.includes('event__rollup-btn'));
+      evt.preventDefault();
+      document.removeEventListener('keydown', closeForm);
+      pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', closeForm);
+      pointEditComponent.element.querySelector('.event--edit').removeEventListener('submit', closeForm);
+
+
+      // if (evt.target.className.includes('event__rollup-btn')) {
+      //   pointFormEditClose();
+      // } else if (evt.key === 'Escape' || evt.key === 'Esc') {
+      //   onEscKeyDown(evt);
+      // } else if (evt.target.className.includes('event--edit')) {
+      //   console.log('Событие отправки формы ');
+      //   evt.preventDefault();
+      //   pointFormEditSubmit(evt);
+      // }
+      replaceFormToPoint();
+      getListenerToPointEdit();
+    }
+
+    const getFormListeners = () => {
+      pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', closeForm);
+      pointEditComponent.element.querySelector('.event--edit').addEventListener('submit', closeForm);
+      document.addEventListener('keydown', closeForm);
+      // pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', pointFormEditClose);
     };
 
+    const pointFormEditOpen = () => { /*ф откроет окно,удалит слушатель себя же, добавит слушатели действий уже на элементах формы.*/
+      pointComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditOpen);
+      replacePointToForm();
+      getFormListeners();
+    };
 
     //Функция добавления слушателя для кнопки открыть форму/стрелка вниз.
-    const getAddEventListenerToPointEdit = () => { /*Ф добавляющая слушатель для кнопки редактирования которая в свою очередь при нажатии изменит отображение с точки на форму для данной точки.*/
+    const getListenerToPointEdit = () => { /*Ф добавляющая слушатель для кнопки редактирования которая в свою очередь при нажатии изменит отображение с точки на форму для данной точки.*/
       const pointBtn = pointComponent.element.querySelector('.event__rollup-btn');
       pointBtn.addEventListener('click', pointFormEditOpen);
     };
 
-    getAddEventListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
+    // const getEventListenersToPointEdit = () => {
+    //   document.removeEventListener('keydown', onEscKeyDown);
+    //   pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditClose);
+    // };
+    //
+    // const getEventListenersToPointForm = () => {
+    //
+    // };
+
+    getListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
     render(pointComponent, this.#TripList.element);
   };
 }
