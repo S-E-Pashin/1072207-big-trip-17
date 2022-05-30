@@ -1,15 +1,15 @@
 import {createElement} from '../render.js';
 
 const types = [
-  "taxi",
-  "bus",
-  "train",
-  "ship",
-  "drive",
-  "flight",
-  "check - in",
-  "sightseeing",
-  "restaurant"
+  'taxi',
+  'bus',
+  'train',
+  'ship',
+  'drive',
+  'flight',
+  'check - in',
+  'sightseeing',
+  'restaurant'
 ];
 
 const getTypeTamplate = (type) => (
