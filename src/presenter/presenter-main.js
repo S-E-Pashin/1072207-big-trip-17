@@ -48,7 +48,7 @@ export default class PresenterMain {
       pointEditComponent.element.querySelector('.event--edit').removeEventListener('submit', closeForm);
       replaceFormToPoint();
       getListenerToPointEdit();
-    }
+    };
 
     const getFormListeners = () => {
       pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', closeForm);
