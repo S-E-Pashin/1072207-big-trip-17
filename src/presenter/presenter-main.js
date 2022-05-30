@@ -57,20 +57,6 @@ export default class PresenterMain {
       getAddEventListenerToPointEdit();
     };
 
-    //Функция добавления слушателя для кнопки открыть форму/стрелка вниз.
-    const getAddEventListenerToPointEdit = () => { /*Ф добавляющая слушатель для кнопки редактирования которая в свою очередь при нажатии изменит отображение с точки на форму для данной точки.*/
-      const pointBtn = pointComponent.element.querySelector('.event__rollup-btn');
-
-      const pointFormEditOpen = () => {
-        replacePointToForm();
-        pointComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditOpen);
-        pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', pointFormEditClose);
-        pointEditComponent.element.querySelector('.event--edit').addEventListener('submit', pointFormEditSubmit);
-        document.addEventListener('keydown', onEscKeyDown);
-      };
-      pointBtn.addEventListener('click', pointFormEditOpen);
-    }
-
     //Функция закрытия
     const onEscKeyDown = (evt) => {/*Закроет окно при нажатии ЭСК, отмена дефолта, замена отображения формы на точку.Снятие слушателя.*/
       if (evt.key === 'Escape' || evt.key === 'Esc') {
@@ -81,6 +67,23 @@ export default class PresenterMain {
         getAddEventListenerToPointEdit();
       }
     };
+
+    const pointFormEditOpen = () => {
+      replacePointToForm();
+      pointComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditOpen);
+      pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', pointFormEditClose);
+      pointEditComponent.element.querySelector('.event--edit').addEventListener('submit', pointFormEditSubmit);
+      document.addEventListener('keydown', onEscKeyDown);
+    };
+
+
+    //Функция добавления слушателя для кнопки открыть форму/стрелка вниз.
+    const getAddEventListenerToPointEdit = () => { /*Ф добавляющая слушатель для кнопки редактирования которая в свою очередь при нажатии изменит отображение с точки на форму для данной точки.*/
+      const pointBtn = pointComponent.element.querySelector('.event__rollup-btn');
+      pointBtn.addEventListener('click', pointFormEditOpen);
+    }
+
+
 
     getAddEventListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
     render(pointComponent, this.#TripList.element);
