@@ -81,9 +81,7 @@ export default class PresenterMain {
     const getAddEventListenerToPointEdit = () => { /*Ф добавляющая слушатель для кнопки редактирования которая в свою очередь при нажатии изменит отображение с точки на форму для данной точки.*/
       const pointBtn = pointComponent.element.querySelector('.event__rollup-btn');
       pointBtn.addEventListener('click', pointFormEditOpen);
-    }
-
-
+    };
 
     getAddEventListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
     render(pointComponent, this.#TripList.element);
