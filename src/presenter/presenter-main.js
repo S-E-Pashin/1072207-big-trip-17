@@ -69,7 +69,7 @@ export default class PresenterMain {
         document.addEventListener('keydown', onEscKeyDown);
       };
       pointBtn.addEventListener('click', pointFormEditOpen);
-    };
+    }
 
     //Функция закрытия
     const onEscKeyDown = (evt) => {/*Закроет окно при нажатии ЭСК, отмена дефолта, замена отображения формы на точку.Снятие слушателя.*/
