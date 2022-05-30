@@ -41,14 +41,12 @@ export default class PresenterMain {
       this.#TripList.element.replaceChild(pointComponent.element, pointEditComponent.element);
     };
 
-
-
     const pointFormEditClose = () => { /*Функция закрытия окна по нажатию на стрелку вверх*/
-        replaceFormToPoint();
-        document.removeEventListener('keydown', onEscKeyDown);
-        pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditClose);
-        getAddEventListenerToPointEdit();
-      };
+      replaceFormToPoint();
+      document.removeEventListener('keydown', onEscKeyDown);
+      pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditClose);
+      getAddEventListenerToPointEdit();
+    };
 
     const pointFormEditSubmit = (evt) => {
       evt.preventDefault();
@@ -69,7 +67,7 @@ export default class PresenterMain {
         pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', pointFormEditClose);
         pointEditComponent.element.querySelector('.event--edit').addEventListener('submit', pointFormEditSubmit);
         document.addEventListener('keydown', onEscKeyDown);
-      }
+      };
       pointBtn.addEventListener('click', pointFormEditOpen);
     };
 
