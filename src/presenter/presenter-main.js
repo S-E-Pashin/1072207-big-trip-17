@@ -41,29 +41,6 @@ export default class PresenterMain {
       this.#TripList.element.replaceChild(pointComponent.element, pointEditComponent.element);
     };
 
-
-
-
-    //Функция добавления слушателя для кнопки стрелка вверх у формы.
-    // const getAddEventListenerToPointFormEditClose = () => { /*Слушатель закрытия окна по нажатию на стрелку вверх*/
-    //   pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', (evt) => {
-    //     evt.preventDefault();
-    //     replaceFormToPoint();
-    //     document.removeEventListener('keydown', onEscKeyDown);
-    //     pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', getAddEventListenerToPointFormEditSubmit);
-    //   });
-    // };
-
-    //Функция добавления слушателя для кнопки сохранить.
-    // const getAddEventListenerToPointFormEditSubmit = () => {
-    //   pointEditComponent.element.querySelector('.event--edit').addEventListener('submit', (evt) => {/*Слушатель закрытия окна на нажатие сохранить/событие submit*/
-    //     evt.preventDefault();
-    //     replaceFormToPoint();
-    //     document.removeEventListener('keydown', onEscKeyDown);
-    //     pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', getAddEventListenerToPointFormEditSubmit);
-    //   });
-    // };
-
     //Функция закрытия
     const onEscKeyDown = (evt) => {/*Закроет окно при нажатии ЭСК, отмена дефолта, замена отображения формы на точку.Снятие слушателя.*/
       if (evt.key === 'Escape' || evt.key === 'Esc') {
