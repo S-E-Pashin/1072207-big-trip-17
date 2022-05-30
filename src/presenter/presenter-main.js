@@ -41,16 +41,6 @@ export default class PresenterMain {
       this.#TripList.element.replaceChild(pointComponent.element, pointEditComponent.element);
     };
 
-    //Функция закрытия
-    const onEscKeyDown = (evt) => {/*Закроет окно при нажатии ЭСК, отмена дефолта, замена отображения формы на точку.Снятие слушателя.*/
-      if (evt.key === 'Escape' || evt.key === 'Esc') {
-        evt.preventDefault();
-        replaceFormToPoint();
-        document.removeEventListener('keydown', onEscKeyDown);
-        pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', getAddEventListenerToPointFormEditSubmit);
-        getAddEventListenerToPointEdit();
-      }
-    };
 
 
     const pointFormEditClose = () => { /*Функция закрытия окна по нажатию на стрелку вверх*/
@@ -82,6 +72,18 @@ export default class PresenterMain {
       }
       pointBtn.addEventListener('click', pointFormEditOpen);
     };
+
+    //Функция закрытия
+    const onEscKeyDown = (evt) => {/*Закроет окно при нажатии ЭСК, отмена дефолта, замена отображения формы на точку.Снятие слушателя.*/
+      if (evt.key === 'Escape' || evt.key === 'Esc') {
+        evt.preventDefault();
+        replaceFormToPoint();
+        document.removeEventListener('keydown', onEscKeyDown);
+        pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditClose);
+        getAddEventListenerToPointEdit();
+      }
+    };
+
     getAddEventListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
     render(pointComponent, this.#TripList.element);
   };
