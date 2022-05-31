@@ -63,7 +63,7 @@ export default class PresenterMain {
     };
 
     //Функция добавления слушателя для кнопки открыть форму/стрелка вниз.
-    function getListenerToPointEdit () { /*Ф добавляющая слушатель для кнопки редактирования которая в свою очередь при нажатии изменит отображение с точки на форму для данной точки.*/
+    function getListenerToPointEdit () { /* todo >FD!!! Ф добавляющая слушатель для кнопки редактирования которая в свою очередь при нажатии изменит отображение с точки на форму для данной точки.*/
       const pointBtn = pointComponent.element.querySelector('.event__rollup-btn');
       pointBtn.addEventListener('click', pointFormEditOpen);
     }
