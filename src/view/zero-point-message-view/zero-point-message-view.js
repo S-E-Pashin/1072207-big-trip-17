@@ -1,5 +1,5 @@
 import {createElement} from '../../render.js';
-import {createZeroPointMessageTemplate} from "./zero-point-message-view-template";
+import {createZeroPointMessageTemplate} from './zero-point-message-view-template';
 
 export default class CreateMessageZeroPoint {
   #element = null;
