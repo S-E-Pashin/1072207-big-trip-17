@@ -1,11 +1,11 @@
-import {createElement} from '../render.js';
+import {createElement} from '../../render.js';
+import {createFilterTemplate} from './filter-view-template';
 
-const createTripListTemplate = () => ('<ul class="trip-events__list"></ul>');
+export default class FilterView {
+  #element = null;
 
-export default class TripListView {
-  #element;
   get template() { /*Метод класса. Метод что бы получить шаблон разметки. Все методы кроме конструктора придумываются самостоятельно.*/
-    return createTripListTemplate(); /**/
+    return createFilterTemplate(); /**/
   }
 
   get element() { /*Метод класса. Метод позволяет на основе шаблона создать DOM элемент. Импортирует что то из render.js*/
