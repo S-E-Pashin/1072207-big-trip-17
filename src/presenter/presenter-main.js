@@ -18,13 +18,9 @@ export default class PresenterMain {
     this.#pointsModel = pointsModel;
     this.#points = [...this.#pointsModel.points]; /*TODO ...this это оператор расширения из ES 6, он позволяет вставить массив в другой массив как бы между элементами массива. В данном случае он позволяет создать новый массив "развернув" старый и изменять его без изменений "старого" массива.  */ /*Вызываю метод get(не как функцию так как синтаксис) который возвращает результат вычисляемого приватного свойства которое в свою очередь является созданным массивом*/
     render(this.#SortBlock, this.#mainContainer); /*В рендер передается (Обязательно с new) сначала что отрисовать а потом куда отрисовать это.*/
-    render(this.#TripList, this.#mainContainer);
-    //todo обратить внимание что на этом этапе в перечень листа можно добавить первым элементом элемент добавления точки путем передачи его в массив листа с 0 номером.
-    // render(this.AddNewPoint, this.TripList.getElement()); /*Добавляю элемент в список-трип,лист*/
-
+    render(this.#TripList, this.#mainContainer);/*Добавляю элемент в главный контейнер*/
 
     for (let i = 0; i < this.#points.length; i++) {
-      // render(new CreateEditPointView(this.#points[i]), this.#TripList.element); /*Добавляет элемент открытый для редактирования*/
       this.#renderPointToTripList(this.#points[i]); /*Вызов функции рендера на каждой точке из массива.*/
     }
   };
