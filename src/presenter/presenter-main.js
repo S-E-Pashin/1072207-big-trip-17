@@ -4,7 +4,7 @@ import TripListView from '../view/trip-list-view.js';
 import CreateAddNewPointView from '../view/add-new-point-view.js';
 import CreateItemPointView from '../view/item-point-view.js';
 import CreateEditPointView from '../view/edit-point-view';
-import CreateMessageZeroPoint from "../view/zero-point-message-view/zero-point-message-view";
+import CreateMessageZeroPoint from '../view/zero-point-message-view/zero-point-message-view';
 
 const NUMBER_POINT_TO_SHOW_MESSAGE_ZERO_POINT = 0;
 
@@ -21,8 +21,6 @@ export default class PresenterMain {
     this.#mainContainer = mainContainer; /*куда передаю*/
     this.#pointsModel = pointsModel;
     this.#points = [...this.#pointsModel.points]; /*TODO ...this это оператор расширения из ES 6, он позволяет вставить массив в другой массив как бы между элементами массива. В данном случае он позволяет создать новый массив "развернув" старый и изменять его без изменений "старого" массива.  */ /*Вызываю метод get(не как функцию так как синтаксис) который возвращает результат вычисляемого приватного свойства которое в свою очередь является созданным массивом*/
-
-
 
     if (this.#points.length === NUMBER_POINT_TO_SHOW_MESSAGE_ZERO_POINT) {
       render(this.#massageZeroPoint, this.#mainContainer);/*Добавляю элемент в главный контейнер*/
