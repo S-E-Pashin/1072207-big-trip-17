@@ -1,4 +1,4 @@
-import {render} from '../render.js';
+import {render} from '../framework/render';
 import SortView from '../view/sort-view/sort-view.js';
 import TripListView from '../view/trip-list-view/trip-list-view.js';
 import CreateAddNewPointView from '../view/add-new-point-view/add-new-point-view.js';

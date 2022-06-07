@@ -1,4 +1,4 @@
-import {createElement} from '../../render.js';
+import AbstractView from "../../framework/view/abstract-view";
 
 const getListOffers = (offersArray) => {
   if (offersArray !== null) {
@@ -59,26 +59,15 @@ const createItemPointTemplate = (point) => {
               </div>            </li>`  );
 };
 
-export default class CreateItemPointView {
+export default class CreateItemPointView extends AbstractView {
   #point = null;
-  #element = null;
 
   constructor(point) {
+    super();
     this.#point = point;
   }
 
   get template() {
     return createItemPointTemplate(this.#point); /*? Это то что было нужно=передача ссылки объекта точки, todo понять как это работает! Долго искал как передается, сделал по аналогии, пока не понятно.*/
-  }
-
-  get element() { /*Метод класса. Метод позволяет на основе шаблона создать DOM элемент. Импортирует что то из render.js*/
-    if (!this.#element) { /*Вольная интерпретация сингл-тон или по другому условие при котором не будут делаться дубли. Не совсем понятно. todo Как это работает? */
-      this.#element = createElement(this.template); /*Функция создающая по шаблону элемент. Вызываю функцию, передаю в нее шаблонную строчку с html а она возвращает DOM элемент todo возвращает или создает на странице? Необходимо проверить.. Находится в render.js*/
-    }
-    return this.#element;
-  }
-
-  removeElement() { /*Метод класса. Позволяет удалить этот элемент. Созданный ? TODO ?*/
-    this.#element = null;
   }
 }

@@ -10,7 +10,7 @@ const types = [
   'restaurant'
 ];
 
-const getTypeTamplate = (type) => (
+const getTypeTemplate = (type) => (
   `<div className="event__${type}-item">
     <input
       id="event-type-${type}-1"
@@ -25,7 +25,7 @@ const getTypeTamplate = (type) => (
   </div>`
 );
 
-const typesTemplate = types.map(getTypeTamplate).join('\n');
+const typesTemplate = types.map(getTypeTemplate).join('\n');
 
 export const createAddNewPointTemplate = () => (
   `<li class="trip-events__item">
