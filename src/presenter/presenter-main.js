@@ -1,9 +1,9 @@
 import {render} from '../render.js';
-import SortView from '../view/sort-view.js';
-import TripListView from '../view/trip-list-view.js';
-import CreateAddNewPointView from '../view/add-new-point-view.js';
-import CreateItemPointView from '../view/item-point-view.js';
-import CreateEditPointView from '../view/edit-point-view';
+import SortView from '../view/sort-view/sort-view.js';
+import TripListView from '../view/trip-list-view/trip-list-view.js';
+import CreateAddNewPointView from '../view/add-new-point-view/add-new-point-view.js';
+import CreateItemPointView from '../view/item-point-view/item-point-view.js';
+import CreateEditPointView from '../view/edit-point-view/edit-point-view';
 import CreateMessageZeroPoint from '../view/zero-point-message-view/zero-point-message-view';
 
 const NUMBER_POINT_TO_SHOW_MESSAGE_ZERO_POINT = 0;

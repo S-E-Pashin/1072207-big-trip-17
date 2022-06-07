@@ -1,4 +1,4 @@
-export const getListPictures = (picturesArray) => {
+export const getListPicturesTemplate = (picturesArray) => {
   if (picturesArray !== null) {
     const picturesList = picturesArray.map( (picture) => {
       const pictureSrc = (picture.src !== null) ? picture.src : '';

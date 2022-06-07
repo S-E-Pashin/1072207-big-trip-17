@@ -1,12 +1,12 @@
-import {createElement} from '../render.js';
-import {getListOffers} from '../handlers/get-offers-arr-to-list';
-import {getListPictures} from '../handlers/get-pictures-arr-to-list';
+import {createElement} from '../../render.js';
+import {getListOffersTemplate} from './edit-point-view-template/get-offers-arr-to-list-template';
+import {getListPicturesTemplate} from './edit-point-view-template/get-pictures-arr-to-list-template';
 
 
 const createEditPointTemplate = (point) => {
   const {name, offers, price, date, pictures, description} = point;
-  const listOffers = getListOffers(offers);
-  const listPictures = getListPictures(pictures);
+  const listOffers = getListOffersTemplate(offers);
+  const listPictures = getListPicturesTemplate(pictures);
   //todo Когда появится время. можно позже добавить условие/логику при которой по цепочке будет формироваться контент в зависимости от наличия наполнения. Заголовки появляться и пропадать.
   return (
     `<li class="trip-events__item">
