@@ -1,4 +1,3 @@
-// import {createElement} from '../../render.js';
 import AbstractView from "../../framework/view/abstract-view";
 import {getListOffersTemplate} from './edit-point-view-template/get-offers-arr-to-list-template';
 import {getListPicturesTemplate} from './edit-point-view-template/get-pictures-arr-to-list-template';
