@@ -1,6 +1,6 @@
 import {generateNumber} from './generate';
 import {generateDescription} from './generate';
-import {getRandomInteger} from '../utils.js';
+import {getRandomInteger} from '../utils/utils.js';
 
 const getPicture = () => ({
   src: `http://picsum.photos/248/152?r=${generateNumber()}`,
