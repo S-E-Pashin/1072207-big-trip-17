@@ -1,6 +1,6 @@
 import {humanizePointDueDateDay} from '../utils/point.js'; /*экспорт человеческой даты созданной на основании dayjs*/
 // import {humanizePointDueDateMmHh} from '../utils/point.js'; /*экспорт человеческой даты созданной на основании dayjs*/
-import {humanizePointDueDateMmHh} from "../utils/point.js";
+import {humanizePointDueDateMmHh} from '../utils/point.js';
 
 
 import {getRandomInteger} from '../utils/common.js';

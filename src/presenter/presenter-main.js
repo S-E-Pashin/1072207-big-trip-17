@@ -54,12 +54,11 @@ export default class PresenterMain {
     };
 
     /*ф откроет окно,удалит слушатель себя же, добавит слушатели действий уже на элементах формы.(Теперь из методов)*/
-     function pointFormEditOpen()  {
+    function pointFormEditOpen()  {
       pointComponent.removeEditOpenClickHandler(); /*Метод*/
       replacePointToForm();
       pointEditComponent.setOpenPointFormListeners(closeForm); /*Метод*/
-    };
-
+    }
 
     render(pointComponent, this.#TripList.element);
     pointComponent.setEditOpenPointListeners(pointFormEditOpen); /*Метод*/
