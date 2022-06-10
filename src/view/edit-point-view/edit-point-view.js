@@ -154,4 +154,10 @@ export default class CreateEditPointView extends AbstractView {
     evt.preventDefault();
     this._callback.editCloseClick();
   };
+
+  removeOpenPointFormListeners = () => {
+    this.element.querySelector('.event__rollup-btn').removeEventListener('click', this._callback.editCloseClick);
+    this.element.querySelector('.event--edit').removeEventListener('submit', this._callback.editCloseClick);
+    document.removeEventListener('keydown', this._callback.editCloseClick);
+  }
 }

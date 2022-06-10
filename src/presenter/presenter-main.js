@@ -49,9 +49,10 @@ export default class PresenterMain {
 
     const closeForm = (evt) => { /*вот функция которая должна все общие действия по закрытию формы. */
       // evt.preventDefault(); /*Во вью*/
-      document.removeEventListener('keydown', closeForm);
-      pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', closeForm);
-      pointEditComponent.element.querySelector('.event--edit').removeEventListener('submit', closeForm);
+      pointEditComponent.removeOpenPointFormListeners();
+      // document.removeEventListener('keydown', closeForm);
+      // pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', closeForm);
+      // pointEditComponent.element.querySelector('.event--edit').removeEventListener('submit', closeForm);
       replaceFormToPoint();
       // getListenerToPointEdit(); /*TODO Тут потом добавить метод по добавлению слушателей а в остальных потом переработать на удаление слушателей через метод*/
     };
@@ -88,9 +89,9 @@ export default class PresenterMain {
     // getListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
     render(pointComponent, this.#TripList.element);
     // console.log();
-    pointComponent.setEditOpenClickHandler(pointFormEditOpen);
+    pointComponent.setEditOpenPointListeners(pointFormEditOpen);
 
-    // pointComponent.setEditOpenClickHandler(() => {
+    // pointComponent.setEditOpenPointListeners(() => {
     //   replacePointToForm();
     //   getFormListeners();
     // });
@@ -181,7 +182,7 @@ export default class PresenterMain {
 //       }
 //     };
 //
-//     taskComponent.setEditOpenClickHandler(() => {
+//     taskComponent.setEditOpenPointListeners(() => {
 //       replaceCardToForm();
 //       document.addEventListener('keydown', onEscKeyDown);
 //     });
