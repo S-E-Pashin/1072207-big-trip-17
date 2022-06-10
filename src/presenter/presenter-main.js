@@ -1,4 +1,4 @@
-import {render, replace, remove} from '../framework/render.js'; /*todo Добавляет из фреймворка. remove пока не нужен, оставил т.к. в задании есть, если не пригодится удалить через задание.(Сейчас  4 р 1 ч)*/
+import {render, replace} from '../framework/render.js'; /*todo Добавляет из фреймворка. remove пока не нужен, оставил т.к. в задании есть, если не пригодится удалить через задание.(Сейчас  4 р 1 ч)*/
 import SortView from '../view/sort-view/sort-view.js';
 import TripListView from '../view/trip-list-view/trip-list-view.js';
 import CreateAddNewPointView from '../view/add-new-point-view/add-new-point-view.js';
@@ -47,18 +47,19 @@ export default class PresenterMain {
       replace(pointComponent, pointEditComponent); /*Что вставляю, вместо чего*/
     };
 
-    const closeForm = (evt) => { /*вот функция которая должна все общие действия по закрытию формы. */
+    const closeForm = () => { /*вот функция которая должна все общие действия по закрытию формы. */
       pointEditComponent.removeOpenPointFormListeners(); /*Метод*/
       replaceFormToPoint();
       pointComponent.setEditOpenPointListeners(pointFormEditOpen); /*Метод*/
     };
 
     /*ф откроет окно,удалит слушатель себя же, добавит слушатели действий уже на элементах формы.(Теперь из методов)*/
-    const pointFormEditOpen = () => {
+     function pointFormEditOpen()  {
       pointComponent.removeEditOpenClickHandler(); /*Метод*/
       replacePointToForm();
       pointEditComponent.setOpenPointFormListeners(closeForm); /*Метод*/
     };
+
 
     render(pointComponent, this.#TripList.element);
     pointComponent.setEditOpenPointListeners(pointFormEditOpen); /*Метод*/

@@ -1,4 +1,4 @@
-import AbstractView from "../../framework/view/abstract-view";
+import AbstractView from '../../framework/view/abstract-view';
 
 const getListOffers = (offersArray) => {
   if (offersArray !== null) {
@@ -74,7 +74,7 @@ export default class CreateItemPointView extends AbstractView {
   setEditOpenPointListeners = (callback) => { /*метод который при вызове добавит слушатель. Вызовется в презентере. */
     this._callback.editOpenClick = callback;
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#editClickHandler);
-  }
+  };
 
   #editClickHandler = () => {
     this._callback.editOpenClick();
@@ -82,5 +82,5 @@ export default class CreateItemPointView extends AbstractView {
 
   removeEditOpenClickHandler = () => {
     this.element.querySelector('.event__rollup-btn').removeEventListener('click', this._callback.editOpenClick);
-  }
+  };
 }

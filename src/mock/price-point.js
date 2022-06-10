@@ -1,4 +1,4 @@
-import {getRandomInteger} from '../utils/utils';
+import {getRandomInteger} from '../utils/common.js';
 
 export const getPrise = () => {
   const price = {

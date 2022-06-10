@@ -1,5 +1,8 @@
 import {humanizePointDueDateDay} from '../utils/point.js'; /*экспорт человеческой даты созданной на основании dayjs*/
-import {humanizePointDueDateMmHh} from '../utils/point.js'; /*экспорт человеческой даты созданной на основании dayjs*/
+// import {humanizePointDueDateMmHh} from '../utils/point.js'; /*экспорт человеческой даты созданной на основании dayjs*/
+import {humanizePointDueDateMmHh} from "../utils/point.js";
+
+
 import {getRandomInteger} from '../utils/common.js';
 // const {dueDate} = point;/*Деструктуризация. Деструктурирующее присваивание=разбиение переменных и получение данных ... ЕСЛИ ЧТОТО Разбиваешь ПОСМОТРИ! оч полезно!*/
 // const date = (dueDate !== null) ? humanizePointDueDate(dueDate) : ''; Пока не нужно, оставляю если буду после изменять датуimport {getRandomInteger} from '../utils';

@@ -1,4 +1,4 @@
-import AbstractView from "../../framework/view/abstract-view";
+import AbstractView from '../../framework/view/abstract-view';
 import {getListOffersTemplate} from './edit-point-view-template/get-offers-arr-to-list-template';
 import {getListPicturesTemplate} from './edit-point-view-template/get-pictures-arr-to-list-template';
 
@@ -136,7 +136,7 @@ export default class CreateEditPointView extends AbstractView {
   }
 
   get template() { /*Метод класса. Метод что бы получить шаблон разметки. Все методы кроме конструктора придумываются самостоятельно.*/
-    return createEditPointTemplate(this.#point); /**/
+    return createEditPointTemplate(this.#point);
   }
 
   /*Метод добавления слушателей на закрытие/сворачивание редактируемой/открытой точки/формы*/
@@ -146,7 +146,7 @@ export default class CreateEditPointView extends AbstractView {
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#pointFormClickHandler);
     this.element.querySelector('.event--edit').addEventListener('submit', this.#pointFormClickHandler);
     document.addEventListener('keydown', this.#pointFormClickHandler);
-  }
+  };
 
   #pointFormClickHandler = (evt) => {
     evt.preventDefault();
@@ -157,5 +157,5 @@ export default class CreateEditPointView extends AbstractView {
     this.element.querySelector('.event__rollup-btn').removeEventListener('click', this._callback.editCloseClick);
     this.element.querySelector('.event--edit').removeEventListener('submit', this._callback.editCloseClick);
     document.removeEventListener('keydown', this._callback.editCloseClick);
-  }
+  };
 }
