@@ -147,7 +147,6 @@ export default class CreateEditPointView extends AbstractView {
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#pointFormClickHandler);
     this.element.querySelector('.event--edit').addEventListener('submit', this.#pointFormClickHandler);
     document.addEventListener('keydown', this.#pointFormClickHandler);
-    // this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#pointFormClickHandler);
   }
 
   #pointFormClickHandler = (evt) => {
