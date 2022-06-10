@@ -70,4 +70,17 @@ export default class CreateItemPointView extends AbstractView {
   get template() {
     return createItemPointTemplate(this.#point); /*? Это то что было нужно=передача ссылки объекта точки, todo понять как это работает! Долго искал как передается, сделал по аналогии, пока не понятно.*/
   }
+
+  setEditOpenClickHandler = (callback) => { /*метод который при вызове добавит слушатель. Вызовется в презентере. */
+    this._callback.editOpenClick = callback;
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#editClickHandler);
+  }
+
+  #editClickHandler = () => {
+    this._callback.editOpenClick();
+  };
+
+  removeEditOpenClickHandler = () => {
+    this.element.querySelector('.event__rollup-btn').removeEventListener('click', this._callback.editOpenClick);
+  }
 }

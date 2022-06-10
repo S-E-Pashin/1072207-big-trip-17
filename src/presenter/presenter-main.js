@@ -35,6 +35,7 @@ export default class PresenterMain {
   };
 
   #renderPointToTripList = (point) => { /*Функция, создает компонент с разметкой на основании данных и отрисовывает/рендерит его в перечень точек маршрутов, приватная, может быть вызвана только в данном классе.*/
+    // const pointComponent = new CreateItemPointView(point);
     const pointComponent = new CreateItemPointView(point);
     const pointEditComponent = new CreateEditPointView(point);
 
@@ -47,33 +48,170 @@ export default class PresenterMain {
     };
 
     const closeForm = (evt) => { /*вот функция которая должна все общие действия по закрытию формы. */
-      evt.preventDefault();
+      // evt.preventDefault(); /*Во вью*/
       document.removeEventListener('keydown', closeForm);
       pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', closeForm);
       pointEditComponent.element.querySelector('.event--edit').removeEventListener('submit', closeForm);
       replaceFormToPoint();
-      getListenerToPointEdit();
+      // getListenerToPointEdit(); /*TODO Тут потом добавить метод по добавлению слушателей а в остальных потом переработать на удаление слушателей через метод*/
     };
 
-    const getFormListeners = () => {
-      pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', closeForm);
-      pointEditComponent.element.querySelector('.event--edit').addEventListener('submit', closeForm);
-      document.addEventListener('keydown', closeForm);
-    };
 
-    const pointFormEditOpen = () => { /*ф откроет окно,удалит слушатель себя же, добавит слушатели действий уже на элементах формы.*/
-      pointComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditOpen);
+    /*_______Перенесено во вью */
+    // const getOpenPointFormListeners = () => {
+    //   pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', closeForm);
+    //   pointEditComponent.element.querySelector('.event--edit').addEventListener('submit', closeForm);
+    //   document.addEventListener('keydown', closeForm);
+    // };
+    /*_______*/
+
+
+    /*ф откроет окно,удалит слушатель себя же, добавит слушатели действий уже на элементах формы.*/
+    const pointFormEditOpen = () => {
+      pointComponent.removeEditOpenClickHandler();
+      // pointComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditOpen);
+      // console.log('Сработал слушатель');
       replacePointToForm();
-      getFormListeners();
+      // getOpenPointFormListeners();
+      pointEditComponent.setOpenPointFormListeners(closeForm);
     };
 
     //Функция добавления слушателя для кнопки открыть форму/стрелка вниз.
-    function getListenerToPointEdit () { /* todo >FD!!! Ф добавляющая слушатель для кнопки редактирования которая в свою очередь при нажатии изменит отображение с точки на форму для данной точки.*/
-      const pointBtn = pointComponent.element.querySelector('.event__rollup-btn');
-      pointBtn.addEventListener('click', pointFormEditOpen);
-    }
+    // function getListenerToPointEdit () { /* todo >FD!!! Ф добавляющая слушатель для кнопки редактирования которая в свою очередь при нажатии изменит отображение с точки на форму для данной точки.*/
+    //   const pointBtn = pointComponent.element.querySelector('.event__rollup-btn');
+    //
+    //
+    //   pointBtn.addEventListener('click', pointFormEditOpen);
+    // }
 
-    getListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
+
+    // getListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
     render(pointComponent, this.#TripList.element);
+    // console.log();
+    pointComponent.setEditOpenClickHandler(pointFormEditOpen);
+
+    // pointComponent.setEditOpenClickHandler(() => {
+    //   replacePointToForm();
+    //   getFormListeners();
+    // });
   };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//
+// import {render} from '../framework/render.js';
+// import BoardView from '../view/board-view.js';
+// import SortView from '../view/sort-view.js';
+// import TaskListView from '../view/task-list-view.js';
+// import TaskView from '../view/task-view.js';
+// import TaskEditView from '../view/task-edit-view.js';
+// import LoadMoreButtonView from '../view/load-more-button-view.js';
+// import NoTaskView from '../view/no-task-view.js';
+//
+// const TASK_COUNT_PER_STEP = 8;
+//
+// export default class BoardPresenter {
+//   #boardContainer = null;
+//   #tasksModel = null;
+//
+//   #boardComponent = new BoardView();
+//   #taskListComponent = new TaskListView();
+//   #loadMoreButtonComponent = new LoadMoreButtonView();
+//
+//   #boardTasks = [];
+//   #renderedTaskCount = TASK_COUNT_PER_STEP;
+//
+//   constructor(boardContainer, tasksModel) {
+//     this.#boardContainer = boardContainer;
+//     this.#tasksModel = tasksModel;
+//   }
+//
+//   init = () => {
+//     this.#boardTasks = [...this.#tasksModel.tasks];
+//
+//     this.#renderBoard();
+//   };
+//
+//   #handleLoadMoreButtonClick = () => {
+//     this.#boardTasks
+//       .slice(this.#renderedTaskCount, this.#renderedTaskCount + TASK_COUNT_PER_STEP)
+//       .forEach((task) => this.#renderTask(task));
+//
+//     this.#renderedTaskCount += TASK_COUNT_PER_STEP;
+//
+//     if (this.#renderedTaskCount >= this.#boardTasks.length) {
+//       this.#loadMoreButtonComponent.element.remove();
+//       this.#loadMoreButtonComponent.removeElement();
+//     }
+//   };
+//
+//   #renderTask = (task) => {
+//     const taskComponent = new TaskView(task);
+//     const taskEditComponent = new TaskEditView(task);
+//
+//     const replaceCardToForm = () => {
+//       this.#taskListComponent.element.replaceChild(taskEditComponent.element, taskComponent.element);
+//     };
+//
+//     const replaceFormToCard = () => {
+//       this.#taskListComponent.element.replaceChild(taskComponent.element, taskEditComponent.element);
+//     };
+//
+//     const onEscKeyDown = (evt) => {
+//       if (evt.key === 'Escape' || evt.key === 'Esc') {
+//         evt.preventDefault();
+//         replaceFormToCard();
+//         document.removeEventListener('keydown', onEscKeyDown);
+//       }
+//     };
+//
+//     taskComponent.setEditOpenClickHandler(() => {
+//       replaceCardToForm();
+//       document.addEventListener('keydown', onEscKeyDown);
+//     });
+//
+//     taskEditComponent.setFormSubmitHandler(() => {
+//       replaceFormToCard();
+//       document.removeEventListener('keydown', onEscKeyDown);
+//     });
+//
+//     render(taskComponent, this.#taskListComponent.element);
+//   };
+//
+//   #renderBoard = () => {
+//     render(this.#boardComponent, this.#boardContainer);
+//
+//     if (this.#boardTasks.every((task) => task.isArchive)) {
+//       render(new NoTaskView(), this.#boardComponent.element);
+//       return;
+//     }
+//
+//     render(new SortView(), this.#boardComponent.element);
+//     render(this.#taskListComponent, this.#boardComponent.element);
+//
+//     for (let i = 0; i < Math.min(this.#boardTasks.length, TASK_COUNT_PER_STEP); i++) {
+//       this.#renderTask(this.#boardTasks[i]);
+//     }
+//
+//     if (this.#boardTasks.length > TASK_COUNT_PER_STEP) {
+//       render(this.#loadMoreButtonComponent, this.#boardComponent.element);
+//
+//       this.#loadMoreButtonComponent.setClickHandler(this.#handleLoadMoreButtonClick);
+//     }
+//   };

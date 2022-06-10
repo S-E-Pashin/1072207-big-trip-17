@@ -139,4 +139,19 @@ export default class CreateEditPointView extends AbstractView {
   get template() { /*Метод класса. Метод что бы получить шаблон разметки. Все методы кроме конструктора придумываются самостоятельно.*/
     return createEditPointTemplate(this.#point); /**/
   }
+
+  /*Метод добавления слушателей на закрытие/сворачивание редактируемой/открытой точки/формы*/
+  setOpenPointFormListeners = (callback) => { /*метод который при вызове добавит слушатель. Вызовется в презентере. */
+    this._callback.editCloseClick = callback;
+
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#pointFormClickHandler);
+    this.element.querySelector('.event--edit').addEventListener('submit', this.#pointFormClickHandler);
+    document.addEventListener('keydown', this.#pointFormClickHandler);
+    // this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#pointFormClickHandler);
+  }
+
+  #pointFormClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.editCloseClick();
+  };
 }
