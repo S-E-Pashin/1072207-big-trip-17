@@ -1,5 +1,5 @@
 import FilterView from '../view/filter-view/filter-view.js';
-import {render} from '../render.js';
+import {render} from '../framework/render';
 
 export default class PresenterHeader {
   #filterBlock = new FilterView();

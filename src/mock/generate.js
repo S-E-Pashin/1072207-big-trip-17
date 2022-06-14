@@ -1,4 +1,4 @@
-import {getRandomInteger} from '../utils.js';
+import {getRandomInteger} from '../utils/common.js';
 import {OFFERS} from './offers';
 import {getDates} from './date-point';
 import {getPrise} from './price-point';

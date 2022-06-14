@@ -1,4 +1,4 @@
-export const getListOffers = (offersArray) => {
+export const getListOffersTemplate = (offersArray) => {
   if (offersArray !== null) {
     const offersList = offersArray.map( (offer) => { /*Мне очень не нравится что линтер не дает мне возможности использовать построение согласно тому же МДНу т.к. я считаю что function(offer) {} значительно нагляднее при использовании map и соответствует документации .*/
       const eventOfferTitle = (offer.title !== null) ? offer.title : '';

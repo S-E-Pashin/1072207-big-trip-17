@@ -1,9 +1,9 @@
-import {render} from '../render.js';
-import SortView from '../view/sort-view.js';
-import TripListView from '../view/trip-list-view.js';
-import CreateAddNewPointView from '../view/add-new-point-view.js';
-import CreateItemPointView from '../view/item-point-view.js';
-import CreateEditPointView from '../view/edit-point-view';
+import {render, replace} from '../framework/render.js'; /*todo Добавляет из фреймворка. remove пока не нужен, оставил т.к. в задании есть, если не пригодится удалить через задание.(Сейчас  4 р 1 ч)*/
+import SortView from '../view/sort-view/sort-view.js';
+import TripListView from '../view/trip-list-view/trip-list-view.js';
+import CreateAddNewPointView from '../view/add-new-point-view/add-new-point-view.js';
+import CreateItemPointView from '../view/item-point-view/item-point-view.js';
+import CreateEditPointView from '../view/edit-point-view/edit-point-view';
 import CreateMessageZeroPoint from '../view/zero-point-message-view/zero-point-message-view';
 
 const NUMBER_POINT_TO_SHOW_MESSAGE_ZERO_POINT = 0;
@@ -35,45 +35,32 @@ export default class PresenterMain {
   };
 
   #renderPointToTripList = (point) => { /*Функция, создает компонент с разметкой на основании данных и отрисовывает/рендерит его в перечень точек маршрутов, приватная, может быть вызвана только в данном классе.*/
+    // const pointComponent = new CreateItemPointView(point);
     const pointComponent = new CreateItemPointView(point);
     const pointEditComponent = new CreateEditPointView(point);
 
     const replacePointToForm = () => { /*Функция изменяющая визуал точки на форму*/
-      this.#TripList.element.replaceChild(pointEditComponent.element, pointComponent.element);/*Что вставляю, вместо чего*/
+      replace(pointEditComponent, pointComponent);/*Что вставляю, вместо чего*/ /*todo посмотреть метод*/
     };
 
     const replaceFormToPoint = () => {/*Функция изменяющая визуал формы на точку*/
-      this.#TripList.element.replaceChild(pointComponent.element, pointEditComponent.element);
+      replace(pointComponent, pointEditComponent); /*Что вставляю, вместо чего*/
     };
 
-    const closeForm = (evt) => { /*вот функция которая должна все общие действия по закрытию формы. */
-      evt.preventDefault();
-      document.removeEventListener('keydown', closeForm);
-      pointEditComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', closeForm);
-      pointEditComponent.element.querySelector('.event--edit').removeEventListener('submit', closeForm);
+    const closeForm = () => { /*вот функция которая должна все общие действия по закрытию формы. */
+      pointEditComponent.removeOpenPointFormListeners(); /*Метод*/
       replaceFormToPoint();
-      getListenerToPointEdit();
+      pointComponent.setEditOpenPointListeners(pointFormEditOpen); /*Метод*/
     };
 
-    const getFormListeners = () => {
-      pointEditComponent.element.querySelector('.event__rollup-btn').addEventListener('click', closeForm);
-      pointEditComponent.element.querySelector('.event--edit').addEventListener('submit', closeForm);
-      document.addEventListener('keydown', closeForm);
-    };
-
-    const pointFormEditOpen = () => { /*ф откроет окно,удалит слушатель себя же, добавит слушатели действий уже на элементах формы.*/
-      pointComponent.element.querySelector('.event__rollup-btn').removeEventListener('click', pointFormEditOpen);
+    /*ф откроет окно,удалит слушатель себя же, добавит слушатели действий уже на элементах формы.(Теперь из методов)*/
+    function pointFormEditOpen()  {
+      pointComponent.removeEditOpenClickHandler(); /*Метод*/
       replacePointToForm();
-      getFormListeners();
-    };
-
-    //Функция добавления слушателя для кнопки открыть форму/стрелка вниз.
-    function getListenerToPointEdit () { /* todo >FD!!! Ф добавляющая слушатель для кнопки редактирования которая в свою очередь при нажатии изменит отображение с точки на форму для данной точки.*/
-      const pointBtn = pointComponent.element.querySelector('.event__rollup-btn');
-      pointBtn.addEventListener('click', pointFormEditOpen);
+      pointEditComponent.setOpenPointFormListeners(closeForm); /*Метод*/
     }
 
-    getListenerToPointEdit(); /*Запуск функции. TODO обратить внимание что слушатель устанавливается на все точки */
     render(pointComponent, this.#TripList.element);
+    pointComponent.setEditOpenPointListeners(pointFormEditOpen); /*Метод*/
   };
 }
