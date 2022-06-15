@@ -35,7 +35,6 @@ export default class PresenterMain {
   };
 
   #renderPointToTripList = (point) => { /*Функция, создает компонент с разметкой на основании данных и отрисовывает/рендерит его в перечень точек маршрутов, приватная, может быть вызвана только в данном классе.*/
-    // const pointComponent = new CreateItemPointView(point);
     const pointComponent = new CreateItemPointView(point);
     const pointEditComponent = new CreateEditPointView(point);
 
