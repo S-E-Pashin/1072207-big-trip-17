@@ -17,4 +17,5 @@ presenterMain.init(siteTripEventsContainer, pointsModel); /*В контейне�
 
 export const savePoints = pointsModel.points;
 // console.log(pointsModel.points[2]);
-console.log(pointsModel.points[0].date);
+// console.log(pointsModel.points[0].date);
+// console.log(pointsModel);

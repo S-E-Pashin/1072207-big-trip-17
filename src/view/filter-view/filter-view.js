@@ -28,11 +28,13 @@ export default class FilterView extends AbstractView {
     evt.preventDefault();
     const points = savePoints;
     let target = evt.target;
+    // target.checked ='checked';
     // let targetText = (target.textContent).toUpperCase();
-
-    // console.log((target.textContent).toUpperCase());
+    // const input = document.querySelector(`[id='${target.getAttribute('for')}']`)/*Получает значение инпута используя связь между инпутом и лэйблом посредством for id*/
+    // input.checked = true; /*Устанавливает для элемента значение выбора*/
+    // console.log(input);
     filter(points, target)
-    // console.log(points);
+    // console.log(target.getAttribute('for'));
     // console.log(filter(points,targetText));
 
 

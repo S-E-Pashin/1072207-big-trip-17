@@ -1,118 +1,46 @@
 import dayjs from "dayjs";
-import {render} from '../../framework/render.js';
 import {presenterMain} from "../../main";
 import {siteTripEventsContainer} from "../../main";
-/*Условие
-* Возвращает?
-* Список точек соответствующих условию
-*
-* Получает на вход?
-* список точек
-* нажатое значение/ или результат нажатого ключ/значения
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-* */
-export const filterType = {
-  EVERYTHING: 'everything',
-  FUTURE: 'future',
-  PAST: 'past',
-}
+import {filterType} from "../../const";
 
+/*Функция получает исходный массив точек и значение нажатой кнопки.*/
+export const filter = (points, target) => {
+  // const targetBody = target;
+  const targetText = (target.textContent).toLowerCase(); /*Получение значения нажатого элемента, преобразование в верхний регистр.*/
+  const dayToDay = dayjs().format('YYYY-MM-DD');  /*Получение сегодняшней даты*/
+  const newPointsToVision = {};  /*Создание объекта для использования как pointModel*/
+  newPointsToVision.points = []; /*Создание массива для использования как пойнт модела*/
+  const input = document.querySelector(`[id='${target.getAttribute('for')}']`)/*Получает значение инпута используя связь между инпутом и лэйблом посредством for id*/
+  input.checked = true; /*Устанавливает для элемента значение выбора*/
 
+  for (let i = 0; i < points.length; i++) {  /*Цикл перебора точек для осуществления фильтрации по параметрам.*/
+    const pointsDateFrom = dayjs(points[i].date.from.ddmmyy).format('YYYY-MM-DD'); /*Приведение даты к возможной для сравнения согласно док dayjs*/
+    const pointsDateTo = dayjs(points[i].date.to.ddmmyy).format('YYYY-MM-DD'); /*-//-*/
 
-// const conditionFilter = {
-//   EVERYTHING: true,
-//   FUTURE: dayjs(points[i].date.from.ddmmyy).format('YYYY-MM-DD'),
-//   PAST: '',
-// }
-
-
-
-export const filter = (points, condition) => {
-  const conditionText = (condition.textContent).toUpperCase();
-  const dayToDay = dayjs().format('YYYY-MM-DD');
-  console.log(points);
-  console.log(conditionText);
-
-  for (let i = 0; i < points.length; i++) {
-    const pointsDateFrom = dayjs(points[i].date.from.ddmmyy).format('YYYY-MM-DD');
-    const pointsDateTo = dayjs(points[i].date.to.ddmmyy).format('YYYY-MM-DD');
-
-    const conditionFilter = {
-      EVERYTHING: true,
-      PAST: (dayjs(pointsDateTo).isBefore(dayjs(dayToDay))), /*дата 1 до даты 2 ?*/
-      FUTURE: dayjs(pointsDateFrom).isAfter(dayjs(dayToDay)), /*дата 1 после даты 2?*/
+    const conditionFilter = {  /*Объект для использования в роли исполнительного фильтра*/
+      //Меняя значения в файле констант и в самом теле разметки на аналогичные конструкция продолжит работу и не потребуется использовать данный участок отдельно углубляясь
+      [filterType.EVERYTHING]: true,  /*Условие показа.*/
+      [filterType.PAST]: (dayjs(pointsDateTo).isBefore(dayjs(dayToDay))), /*дата 1 до даты 2 ?*/
+      [filterType.FUTURE]: dayjs(pointsDateFrom).isAfter(dayjs(dayToDay)), /*дата 1 после даты 2?*/
     }
 
-    if (conditionFilter[conditionText]) {
-
-      // presenterMain.init(siteTripEventsContainer, pointsModel);
-
-
-      console.log(points[i]);
-    }
-
-    // console.log(conditionFilter[conditionText]);
-
-
-
-    // console.log(pointsDateFrom);
-    // console.log(pointsDateTo);
-    // console.log(dayToDay);
-
-    // console.log(dayjs(pointsDateTo).isBefore(dayjs(dayToDay))); /*дата 1 до даты 2 ?*/
+    // if (conditionFilter[filterType.FUTURE]) {
     //
-    // console.log(dayjs(pointsDateTo).isAfter(dayjs(dayToDay))); /*дата 1 после даты 2?*/
-
-    // this.#renderPointToTripList(this.#points[i]); /*Вызов функции рендера на каждой точке из массива.*/
+    // }
 
 
-
+    if (conditionFilter[targetText]) { /*Условие, если дата соответствует заданному условию*/
+      newPointsToVision.points.push(points[i]); /*Добавить в новый массив данную точку*/
+    }
   }
 
+  if (newPointsToVision.points.length > 0) { /*Если массив не пустой*/
+    const list = siteTripEventsContainer.querySelector('.trip-events__list'); /*Находит список в отрисовываемом элементе*/
 
+    while (list.firstChild) { /*Удаляет из списка в отрисованном элементе на каждой итерации первый элемент а так как итераций столько же сколько и элементов будут удалены все дочерние элементы так как на каждой итерации номер 2 занимает 1е место*/
+      list.removeChild(list.firstChild);
+    }
 
-
-
-
-return dayToDay;
-
+    presenterMain.init(siteTripEventsContainer, newPointsToVision); /*Отрисовывает согласно условиям в контейнер обновленный список точек.*/
+  }
 }
-// console.log(filter());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
