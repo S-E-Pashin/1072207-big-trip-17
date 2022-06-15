@@ -9,16 +9,16 @@ import {getRandomInteger} from '../utils/common.js';
 
 export const localPointDate = [
   {
-    'date_from': '2019-07-10T22:54:56.845Z',
-    'date_to': '2019-07-11T11:22:11.375Z',
+    'date_from': '2022-07-10T22:54:56.845Z',
+    'date_to': '2022-07-11T11:22:11.375Z',
   },
   {
     'date_from': '2019-07-10T20:52:56.845Z',
     'date_to': '2019-07-11T11:20:11.375Z',
   },
   {
-    'date_from': '2019-07-10T21:51:56.845Z',
-    'date_to': '2019-07-11T11:21:15.375Z',
+    'date_from': '2023-07-10T21:51:56.845Z',
+    'date_to': '2023-07-11T11:21:15.375Z',
   },
   {
     'date_from': '2019-07-10T22:57:56.845Z',

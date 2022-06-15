@@ -7,7 +7,14 @@ export default class PresenterHeader {
 
   init = (headerContainer) => { /* Метод инициализурующий начало работы приложения. В него получаем контейнер куда нужно отрисовать todo наполнение приложения-сайта?. Он инициализируется и приложение начнет работать. */
     this.#headerContainer = headerContainer;
+
+    // const message = () => console.log("asdf");
+    const message = function() {console.log(this)};
+
+    this.#filterBlock.setFiltersListeners(message);
+
     render(this.#filterBlock, this.#headerContainer); /*В рендер передается (Обязательно с new) сначала что отрисовать а потом куда отрисовать это.*/
+
 
     /*Todo  ниже кандидат на удаление. Весь закомментированный участок. Если не потребуется в итерации 3 - удаляю. */
   //   // render(new boardComponent, this.boardContainer); /*Рисует доску Вариант когда не использовались бы пропертис из бейбла. Тут отличие что не используется this */
