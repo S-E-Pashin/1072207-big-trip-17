@@ -44,7 +44,7 @@ export default class FilterView extends AbstractView {
         pointsFuture.push(points[i]); /*Добавить в новый массив данную точку*/
       }
     }
-    return pointsFuture
+    return pointsFuture;
   };
 
   filterCheckSwitch = () => {

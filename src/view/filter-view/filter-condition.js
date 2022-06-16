@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 import {presenterMain} from '../../main';
 import {siteTripEventsContainer} from '../../main';
 import {filterType} from '../../const';
