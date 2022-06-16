@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
-import {presenterMain} from "../../main";
-import {siteTripEventsContainer} from "../../main";
-import {filterType} from "../../const";
+import {presenterMain} from '../../main';
+import {siteTripEventsContainer} from '../../main';
+import {filterType} from '../../const';
 
 /*Функция получает исходный массив точек и значение нажатой кнопки.*/
 export const filter = (points, target) => {
@@ -11,7 +11,7 @@ export const filter = (points, target) => {
   const targetText = (target.textContent).toLowerCase(); /*Получение значения нажатого элемента, преобразование в верхний регистр.*/
 
   if (target.classList.contains('trip-filters__filter-label')) {
-    const input = document.querySelector(`[id='${target.getAttribute('for')}']`)/*Получает значение инпута используя связь между инпутом и лэйблом посредством for id*/
+    const input = document.querySelector(`[id='${target.getAttribute('for')}']`);/*Получает значение инпута используя связь между инпутом и лэйблом посредством for id*/
     input.checked = true; /*Устанавливает для элемента значение выбора*/
   }
 
@@ -24,7 +24,7 @@ export const filter = (points, target) => {
       [filterType.EVERYTHING]: true,  /*Условие показа.*/
       [filterType.PAST]: (dayjs(pointsDateTo).isBefore(dayjs(dayToDay))), /*дата 1 до даты 2 ?*/
       [filterType.FUTURE]: dayjs(pointsDateFrom).isAfter(dayjs(dayToDay)), /*дата 1 после даты 2?*/
-    }
+    };
 
     if (conditionFilter[targetText]) { /*Условие, если дата соответствует заданному условию*/
       newPointsToVision.points.push(points[i]); /*Добавить в новый массив данную точку*/
@@ -40,4 +40,4 @@ export const filter = (points, target) => {
 
     presenterMain.init(siteTripEventsContainer, newPointsToVision); /*Отрисовывает согласно условиям в контейнер обновленный список точек.*/
   }
-}
+};

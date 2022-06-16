@@ -1,8 +1,8 @@
 import {createFilterTemplate} from './filter-view-template';
 import AbstractView from '../../framework/view/abstract-view';
-import {savePoints} from "../../main";
-import dayjs from "dayjs";
-import {filterType} from "../../const";
+import {savePoints} from '../../main';
+import dayjs from 'dayjs';
+import {filterType} from '../../const';
 
 const dayToDay = dayjs().format('YYYY-MM-DD');  /*Получение сегодняшней даты*/
 
@@ -19,7 +19,7 @@ export default class FilterView extends AbstractView {
   #filterClickHandler = (evt) => {
     evt.preventDefault();
     const points = savePoints;
-    let target = evt.target;
+    const target = evt.target;
     this._callback.clickFilter(points, target);
   };
 
@@ -32,8 +32,8 @@ export default class FilterView extends AbstractView {
         pointsPast.push(points[i]); /*Добавить в новый массив данную точку*/
       }
     }
-    return pointsPast
-  }
+    return pointsPast;
+  };
 
   #getFilteredPointsFuture = (points) => {
     const pointsFuture = [];
@@ -45,7 +45,7 @@ export default class FilterView extends AbstractView {
       }
     }
     return pointsFuture
-  }
+  };
 
   filterCheckSwitch = () => {
     const points = savePoints;
@@ -54,16 +54,16 @@ export default class FilterView extends AbstractView {
       [filterType.EVERYTHING]: points,  /*Условие показа. все точки*/
       [filterType.PAST]: this.#getFilteredPointsPast(points), /*дата 1 до даты 2 ?*/
       [filterType.FUTURE]: this.#getFilteredPointsFuture(points), /*дата 1 после даты 2?*/
-    }
+    };
 
     if (filteredPoints[filterType.PAST].length < 1) {
-      const input = document.querySelector(`[id='filter-past']`);
+      const input = document.getElementById('filter-past');
       input.setAttribute('disabled', 'disabled');
     }
 
     if (filteredPoints[filterType.FUTURE].length < 1) {
-      const input = document.querySelector(`[id='filter-future']`);
+      const input = document.getElementById('filter-future');
       input.setAttribute('disabled', 'disabled');
     }
-  }
+  };
 }
