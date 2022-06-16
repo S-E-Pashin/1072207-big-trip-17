@@ -2,7 +2,6 @@
 import PresenterHeader from './presenter/presenter-header'; /*Подключение презентера в точке входа */
 import PresenterMain from './presenter/presenter-main';
 import PointsModel from './model/points-model';
-// import FilterView from "./view/filter-view/filter-view";
 
 const siteBodyElement = document.querySelector('.page-body');/*Todo У него класс майн а в моем индексе классы отличаются! Глубина не влияет! Помни в индексе нет а в доме есть! */
 const siteHeaderElement = siteBodyElement.querySelector('.trip-controls__filters');
@@ -20,11 +19,3 @@ presenterMain.init(siteTripEventsContainer, pointsModel); /*В контейне�
 // console.log(pointsModel.points[2]);
 // console.log(pointsModel.points[0].date);
 // console.log(pointsModel);
-
-
-
-
-// console.log(presenterHeader.filterBlock.filterCheckSwitch);
-// FilterView.filterCheckSwitch;
-// presenterHeader.filterBlock.filterCheckSwitch();
-// presenterHeader.filterBlock.filterCheckSwitch();

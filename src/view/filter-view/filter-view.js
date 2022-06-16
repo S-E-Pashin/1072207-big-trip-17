@@ -1,7 +1,6 @@
 import {createFilterTemplate} from './filter-view-template';
 import AbstractView from '../../framework/view/abstract-view';
 import {savePoints} from "../../main";
-// import {filter} from "./filter-condition";
 import dayjs from "dayjs";
 import {filterType} from "../../const";
 
@@ -22,12 +21,10 @@ export default class FilterView extends AbstractView {
     const points = savePoints;
     let target = evt.target;
     this._callback.clickFilter(points, target);
-    // console.log(this.filteringPoints());
   };
 
   #getFilteredPointsPast = (points) => {
     const pointsPast = [];
-    // console.log(points.length);
     for (let i = 0; i < points.length; i++) {
       const pointsDateTo = dayjs(points[i].date.to.ddmmyy).format('YYYY-MM-DD');
 
@@ -51,7 +48,6 @@ export default class FilterView extends AbstractView {
   }
 
   filterCheckSwitch = () => {
-    console.log('проверка переключателей ON 1');
     const points = savePoints;
 
     const filteredPoints = {

@@ -15,7 +15,6 @@ export const filter = (points, target) => {
     input.checked = true; /*Устанавливает для элемента значение выбора*/
   }
 
-
   for (let i = 0; i < points.length; i++) {  /*Цикл перебора точек для осуществления фильтрации по параметрам.*/
     const pointsDateFrom = dayjs(points[i].date.from.ddmmyy).format('YYYY-MM-DD'); /*Приведение даты к возможной для сравнения согласно док dayjs*/
     const pointsDateTo = dayjs(points[i].date.to.ddmmyy).format('YYYY-MM-DD'); /*-//-*/

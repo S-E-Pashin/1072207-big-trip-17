@@ -6,7 +6,7 @@ import CreateItemPointView from '../view/item-point-view/item-point-view.js';
 import CreateEditPointView from '../view/edit-point-view/edit-point-view';
 import CreateMessageZeroPoint from '../view/zero-point-message-view/zero-point-message-view';
 
-const NUMBER_POINT_TO_SHOW_MESSAGE_ZERO_POINT = 0;
+const NUMBER_POINT_TO_SHOW_MESSAGE_ZERO_POINT = 0; /*Todo Можно ли перенести в константы?*/
 
 export default class PresenterMain {
   #SortBlock = new SortView();
