@@ -1,4 +1,4 @@
-import {render, replace} from '../framework/render.js'; /*todo Добавляет из фреймворка. remove пока не нужен, оставил т.к. в задании есть, если не пригодится удалить через задание.(Сейчас  4 р 1 ч)*/
+import {render, replace} from '../framework/render.js'; /*todo Добавляет из фреймворка. remove пока не нужен*/
 import SortView from '../view/sort-view/sort-view.js';
 import TripListView from '../view/trip-list-view/trip-list-view.js';
 import CreateAddNewPointView from '../view/add-new-point-view/add-new-point-view.js';

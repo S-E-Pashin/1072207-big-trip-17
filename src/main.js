@@ -2,12 +2,14 @@
 import PresenterHeader from './presenter/presenter-header'; /*Подключение презентера в точке входа */
 import PresenterMain from './presenter/presenter-main';
 import PointsModel from './model/points-model';
+// import FilterView from "./view/filter-view/filter-view";
 
 const siteBodyElement = document.querySelector('.page-body');/*Todo У него класс майн а в моем индексе классы отличаются! Глубина не влияет! Помни в индексе нет а в доме есть! */
 const siteHeaderElement = siteBodyElement.querySelector('.trip-controls__filters');
 const siteMainElement = siteBodyElement.querySelector('.page-main');
 export const siteTripEventsContainer = siteMainElement.querySelector('.trip-events');
 const pointsModel = new PointsModel();
+export const savePoints = pointsModel.points;
 
 const presenterHeader = new PresenterHeader(); /*Создается экземпляр презентера(Каждый раз когда работаем с классом необходимо создавать экземпляр) todo для чего? */
 export const presenterMain = new PresenterMain();
@@ -15,7 +17,14 @@ export const presenterMain = new PresenterMain();
 presenterHeader.init(siteHeaderElement); /*выполняется функция presenterHeader а именно его метод init(функция в функции с полученным в нее значением siteHeaderElement)*/
 presenterMain.init(siteTripEventsContainer, pointsModel); /*В контейнер добавляется перечень точек(Добавляется только в МАЙН т.к. наполнение пока только для МАЙН а именно pointModel)*/
 
-export const savePoints = pointsModel.points;
 // console.log(pointsModel.points[2]);
 // console.log(pointsModel.points[0].date);
 // console.log(pointsModel);
+
+
+
+
+// console.log(presenterHeader.filterBlock.filterCheckSwitch);
+// FilterView.filterCheckSwitch;
+// presenterHeader.filterBlock.filterCheckSwitch();
+// presenterHeader.filterBlock.filterCheckSwitch();

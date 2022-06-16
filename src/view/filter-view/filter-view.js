@@ -1,12 +1,11 @@
 import {createFilterTemplate} from './filter-view-template';
 import AbstractView from '../../framework/view/abstract-view';
-// import pointsModel from "../../main";
 import {savePoints} from "../../main";
-// const list = null;
-// console.log(list);
+// import {filter} from "./filter-condition";
+import dayjs from "dayjs";
+import {filterType} from "../../const";
 
-import {filter} from "./filter-condition";
-
+const dayToDay = dayjs().format('YYYY-MM-DD');  /*Получение сегодняшней даты*/
 
 export default class FilterView extends AbstractView {
   get template() { /*Метод класса. Метод что бы получить шаблон разметки. Все методы кроме конструктора придумываются самостоятельно.*/
@@ -15,37 +14,60 @@ export default class FilterView extends AbstractView {
 
   setFiltersListeners = (callback) => { /*метод который при вызове добавит слушатель. Вызовется в презентере. */
     this._callback.clickFilter = callback;
-
-    // this.element.querySelector('.event--edit').addEventListener('submit', this.#pointFormClickHandler);
-
-    // this.element.querySelector('.trip-filters__filter').addEventListener('click', this.#filterClickHandler);
     this.element.addEventListener('click', this.#filterClickHandler);
-
-    // document.addEventListener('keydown', this.#pointFormClickHandler);
   };
 
   #filterClickHandler = (evt) => {
     evt.preventDefault();
     const points = savePoints;
     let target = evt.target;
-    // target.checked ='checked';
-    // let targetText = (target.textContent).toUpperCase();
-    // const input = document.querySelector(`[id='${target.getAttribute('for')}']`)/*Получает значение инпута используя связь между инпутом и лэйблом посредством for id*/
-    // input.checked = true; /*Устанавливает для элемента значение выбора*/
-    // console.log(input);
-    filter(points, target)
-    // console.log(target.getAttribute('for'));
-    // console.log(filter(points,targetText));
-
-
-    // if (target.TagName = 'Everything') {
-    //   this._callback.clickFilter();
-    // }
+    this._callback.clickFilter(points, target);
+    // console.log(this.filteringPoints());
   };
 
-  // removeOpenPointFormListeners = () => {
-  //   this.element.querySelector('.event__rollup-btn').removeEventListener('click', this._callback.editCloseClick);
-  //   this.element.querySelector('.event--edit').removeEventListener('submit', this._callback.editCloseClick);
-  //   document.removeEventListener('keydown', this._callback.editCloseClick);
-  // };
+  #getFilteredPointsPast = (points) => {
+    const pointsPast = [];
+    // console.log(points.length);
+    for (let i = 0; i < points.length; i++) {
+      const pointsDateTo = dayjs(points[i].date.to.ddmmyy).format('YYYY-MM-DD');
+
+      if (dayjs(pointsDateTo).isBefore(dayjs(dayToDay))) { /*Условие, если дата соответствует заданному условию*/
+        pointsPast.push(points[i]); /*Добавить в новый массив данную точку*/
+      }
+    }
+    return pointsPast
+  }
+
+  #getFilteredPointsFuture = (points) => {
+    const pointsFuture = [];
+    for (let i = 0; i < points.length; i++) {
+      const pointsDateFrom = dayjs(points[i].date.from.ddmmyy).format('YYYY-MM-DD');
+
+      if (dayjs(pointsDateFrom).isAfter(dayjs(dayToDay))) {
+        pointsFuture.push(points[i]); /*Добавить в новый массив данную точку*/
+      }
+    }
+    return pointsFuture
+  }
+
+  filterCheckSwitch = () => {
+    console.log('проверка переключателей ON 1');
+    const points = savePoints;
+
+    const filteredPoints = {
+      [filterType.EVERYTHING]: points,  /*Условие показа. все точки*/
+      [filterType.PAST]: this.#getFilteredPointsPast(points), /*дата 1 до даты 2 ?*/
+      [filterType.FUTURE]: this.#getFilteredPointsFuture(points), /*дата 1 после даты 2?*/
+    }
+
+    if (filteredPoints[filterType.PAST].length < 1) {
+      const input = document.querySelector(`[id='filter-past']`);
+      input.setAttribute('disabled', 'disabled');
+    }
+
+    if (filteredPoints[filterType.FUTURE].length < 1) {
+      const input = document.querySelector(`[id='filter-future']`);
+      input.setAttribute('disabled', 'disabled');
+    }
+  }
 }
