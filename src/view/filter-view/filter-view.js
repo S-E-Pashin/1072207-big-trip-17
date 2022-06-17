@@ -13,7 +13,7 @@ export default class FilterView extends AbstractView {
 
   setFiltersListeners = (callback) => { /*метод который при вызове добавит слушатель. Вызовется в презентере. */
     this._callback.clickFilter = callback;
-    this.element.addEventListener('click', this.#filterClickHandler);
+    this.element.addEventListener('change', this.#filterClickHandler);
   };
 
   #filterClickHandler = (evt) => {

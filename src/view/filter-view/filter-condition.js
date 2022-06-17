@@ -8,12 +8,12 @@ export const filter = (points, target) => {
   const dayToDay = dayjs().format('YYYY-MM-DD');  /*Получение сегодняшней даты*/
   const newPointsToVision = {};  /*Создание объекта для использования как pointModel*/
   newPointsToVision.points = []; /*Создание массива для использования как пойнт модела*/
-  const targetText = (target.textContent).toLowerCase(); /*Получение значения нажатого элемента, преобразование в верхний регистр.*/
 
-  if (target.classList.contains('trip-filters__filter-label')) {
-    const input = document.querySelector(`[id='${target.getAttribute('for')}']`);/*Получает значение инпута используя связь между инпутом и лэйблом посредством for id*/
-    input.checked = true; /*Устанавливает для элемента значение выбора*/
-  }
+  const label = document.querySelector(`[for = '${target.getAttribute('id')}']`);
+  const labelText = (label.textContent).toLowerCase(); /*Получение значения нажатого элемента, преобразование в верхний регистр.*/
+
+  const input = target;
+  input.checked = true; /*Устанавливает для элемента значение выбора*/
 
   for (let i = 0; i < points.length; i++) {  /*Цикл перебора точек для осуществления фильтрации по параметрам.*/
     const pointsDateFrom = dayjs(points[i].date.from.ddmmyy).format('YYYY-MM-DD'); /*Приведение даты к возможной для сравнения согласно док dayjs*/
@@ -26,7 +26,7 @@ export const filter = (points, target) => {
       [filterType.FUTURE]: dayjs(pointsDateFrom).isAfter(dayjs(dayToDay)), /*дата 1 после даты 2?*/
     };
 
-    if (conditionFilter[targetText]) { /*Условие, если дата соответствует заданному условию*/
+    if (conditionFilter[labelText]) { /*Условие, если дата соответствует заданному условию*/
       newPointsToVision.points.push(points[i]); /*Добавить в новый массив данную точку*/
     }
   }
