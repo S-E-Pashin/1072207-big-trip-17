@@ -1,10 +1,8 @@
 import {createFilterTemplate} from './filter-view-template';
 import AbstractView from '../../framework/view/abstract-view';
 import {savePoints} from '../../main';
-import dayjs from 'dayjs';
 import {filterType} from '../../const';
-
-const dayToDay = dayjs().format('YYYY-MM-DD');  /*Получение сегодняшней даты*/
+import {isTimeOld} from "../../utils/time";
 
 export default class FilterView extends AbstractView {
   get template() { /*Метод класса. Метод что бы получить шаблон разметки. Все методы кроме конструктора придумываются самостоятельно.*/
@@ -13,10 +11,10 @@ export default class FilterView extends AbstractView {
 
   setFiltersListeners = (callback) => { /*метод который при вызове добавит слушатель. Вызовется в презентере. */
     this._callback.clickFilter = callback;
-    this.element.addEventListener('change', this.#filterClickHandler);
+    this.element.addEventListener('change', this.#filterChangeHandler);
   };
 
-  #filterClickHandler = (evt) => {
+  #filterChangeHandler = (evt) => {
     evt.preventDefault();
     const points = savePoints;
     const target = evt.target;
@@ -24,26 +22,20 @@ export default class FilterView extends AbstractView {
   };
 
   #getFilteredPointsPast = (points) => {
-    const pointsPast = [];
-    for (let i = 0; i < points.length; i++) {
-      const pointsDateTo = dayjs(points[i].date.to.ddmmyy).format('YYYY-MM-DD');
-
-      if (dayjs(pointsDateTo).isBefore(dayjs(dayToDay))) { /*Условие, если дата соответствует заданному условию*/
-        pointsPast.push(points[i]); /*Добавить в новый массив данную точку*/
+    const pointsPast = points.filter(
+      function (element, index) {
+        return isTimeOld(points[index].date.from.ddmmyy)
       }
-    }
+    );
     return pointsPast;
   };
 
   #getFilteredPointsFuture = (points) => {
-    const pointsFuture = [];
-    for (let i = 0; i < points.length; i++) {
-      const pointsDateFrom = dayjs(points[i].date.from.ddmmyy).format('YYYY-MM-DD');
-
-      if (dayjs(pointsDateFrom).isAfter(dayjs(dayToDay))) {
-        pointsFuture.push(points[i]); /*Добавить в новый массив данную точку*/
+    const pointsFuture = points.filter(
+      function (element, index) {
+        return !isTimeOld(points[index].date.from.ddmmyy)
       }
-    }
+    );
     return pointsFuture;
   };
 
