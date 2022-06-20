@@ -1,8 +1,7 @@
-import dayjs from 'dayjs';
 import {presenterMain} from '../../main';
 import {siteTripEventsContainer} from '../../main';
 import {filterType} from '../../const';
-import {isTimeOld} from "../../utils/time";
+import {isTimeOld} from '../../utils/time';
 
 /*Функция получает исходный массив точек и значение нажатой кнопки.*/
 export const filter = (points, target) => {

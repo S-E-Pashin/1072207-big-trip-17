@@ -8,5 +8,5 @@ const numberDayToDay = +nowDate;
 export const isTimeOld = (searchDay) => {
   const dateFormat = new Date(`${searchDay}`);
   const dateNumber = dateFormat.getTime();
-  return numberDayToDay > dateNumber
-}
+  return numberDayToDay > dateNumber;
+};

@@ -2,7 +2,7 @@ import {createFilterTemplate} from './filter-view-template';
 import AbstractView from '../../framework/view/abstract-view';
 import {savePoints} from '../../main';
 import {filterType} from '../../const';
-import {isTimeOld} from "../../utils/time";
+import {isTimeOld} from '../../utils/time';
 
 export default class FilterView extends AbstractView {
   get template() { /*Метод класса. Метод что бы получить шаблон разметки. Все методы кроме конструктора придумываются самостоятельно.*/
@@ -22,20 +22,12 @@ export default class FilterView extends AbstractView {
   };
 
   #getFilteredPointsPast = (points) => {
-    const pointsPast = points.filter(
-      function (element, index) {
-        return isTimeOld(points[index].date.from.ddmmyy)
-      }
-    );
+    const pointsPast = points.filter((element, index) => isTimeOld(points[index].date.to.ddmmyy));
     return pointsPast;
   };
 
   #getFilteredPointsFuture = (points) => {
-    const pointsFuture = points.filter(
-      function (element, index) {
-        return !isTimeOld(points[index].date.from.ddmmyy)
-      }
-    );
+    const pointsFuture = points.filter((element, index) => !isTimeOld(points[index].date.from.ddmmyy));
     return pointsFuture;
   };
 
