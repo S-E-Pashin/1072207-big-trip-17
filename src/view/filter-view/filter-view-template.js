@@ -6,7 +6,8 @@ export const createFilterTemplate = () => ( /*Шаблон элемента*/
                   class="trip-filters__filter-input  visually-hidden"
                   type="radio"
                   name="trip-filter"
-                  value="everything">
+                  value="everything"
+                  checked>
                   <label
                   class="trip-filters__filter-label"
                   for="filter-everything"
@@ -30,8 +31,7 @@ export const createFilterTemplate = () => ( /*Шаблон элемента*/
                   class="trip-filters__filter-input  visually-hidden"
                   type="radio"
                   name="trip-filter"
-                  value="past"
-                  checked>
+                  value="past">
                   <label
                   class="trip-filters__filter-label"
                     for="filter-past"
