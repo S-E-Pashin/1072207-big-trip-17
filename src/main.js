@@ -2,6 +2,7 @@
 import PresenterHeader from './presenter/presenter-header'; /*Подключение презентера в точке входа */
 import PresenterMain from './presenter/presenter-main';
 import PointsModel from './model/points-model';
+// import PointPresenter from "./presenter/presenter-point";
 
 const siteBodyElement = document.querySelector('.page-body');/*Todo У него класс майн а в моем индексе классы отличаются! Глубина не влияет! Помни в индексе нет а в доме есть! */
 const siteHeaderElement = siteBodyElement.querySelector('.trip-controls__filters');
@@ -15,3 +16,7 @@ export const presenterMain = new PresenterMain();
 
 presenterHeader.init(siteHeaderElement); /*выполняется функция presenterHeader а именно его метод init(функция в функции с полученным в нее значением siteHeaderElement)*/
 presenterMain.init(siteTripEventsContainer, pointsModel); /*В контейнер добавляется перечень точек(Добавляется только в МАЙН т.к. наполнение пока только для МАЙН а именно pointModel)*/
+
+// const ppp = new PointPresenter(siteTripEventsContainer);
+// ppp.init(savePoints[0]);
+

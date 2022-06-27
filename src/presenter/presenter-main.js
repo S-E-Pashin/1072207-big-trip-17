@@ -2,9 +2,8 @@ import {render, replace} from '../framework/render.js'; /*todo Добавляе�
 import SortView from '../view/sort-view/sort-view.js';
 import TripListView from '../view/trip-list-view/trip-list-view.js';
 import CreateAddNewPointView from '../view/add-new-point-view/add-new-point-view.js';
-import CreateItemPointView from '../view/item-point-view/item-point-view.js';
-import CreateEditPointView from '../view/edit-point-view/edit-point-view';
 import CreateMessageZeroPoint from '../view/zero-point-message-view/zero-point-message-view';
+import PointPresenter from "./presenter-point";
 
 const NUMBER_POINT_TO_SHOW_MESSAGE_ZERO_POINT = 0; /*Todo Можно ли перенести в константы?*/
 
@@ -16,6 +15,8 @@ export default class PresenterMain {
   #mainContainer = null;
   #pointsModel = null;
   #points = [];
+  #pointPresenter = new PointPresenter(this.#TripList.element);
+
 
   init = (mainContainer, pointsModel) => { /* Метод инициализурующий начало работы приложения. В него получаем контейнер куда нужно отрисовать todo наполнение приложения-сайта?. Он инициализируется и приложение начнет работать. */
     this.#mainContainer = mainContainer; /*куда передаю*/
@@ -29,36 +30,7 @@ export default class PresenterMain {
     }
 
     for (let i = 0; i < this.#points.length; i++) {
-      this.#renderPointToTripList(this.#points[i]); /*Вызов функции рендера на каждой точке из массива.*/
+      this.#pointPresenter.init(this.#points[i]);
     }
-  };
-
-  #renderPointToTripList = (point) => { /*Функция, создает компонент с разметкой на основании данных и отрисовывает/рендерит его в перечень точек маршрутов, приватная, может быть вызвана только в данном классе.*/
-    const pointComponent = new CreateItemPointView(point);
-    const pointEditComponent = new CreateEditPointView(point);
-
-    const replacePointToForm = () => { /*Функция изменяющая визуал точки на форму*/
-      replace(pointEditComponent, pointComponent);/*Что вставляю, вместо чего*/ /*todo посмотреть метод*/
-    };
-
-    const replaceFormToPoint = () => {/*Функция изменяющая визуал формы на точку*/
-      replace(pointComponent, pointEditComponent); /*Что вставляю, вместо чего*/
-    };
-
-    const closeForm = () => { /*вот функция которая должна все общие действия по закрытию формы. */
-      pointEditComponent.removeOpenPointFormListeners(); /*Метод*/
-      replaceFormToPoint();
-      pointComponent.setEditOpenPointListeners(pointFormEditOpen); /*Метод*/
-    };
-
-    /*ф откроет окно,удалит слушатель себя же, добавит слушатели действий уже на элементах формы.(Теперь из методов)*/
-    function pointFormEditOpen()  {
-      pointComponent.removeEditOpenClickHandler(); /*Метод*/
-      replacePointToForm();
-      pointEditComponent.setOpenPointFormListeners(closeForm); /*Метод*/
-    }
-
-    render(pointComponent, this.#TripList.element);
-    pointComponent.setEditOpenPointListeners(pointFormEditOpen); /*Метод*/
   };
 }
