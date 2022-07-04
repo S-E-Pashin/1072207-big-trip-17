@@ -142,20 +142,19 @@ export default class CreateEditPointView extends AbstractView {
   /*Метод добавления слушателей на закрытие/сворачивание редактируемой/открытой точки/формы*/
   setOpenPointFormListeners = (callback) => { /*метод который при вызове добавит слушатель. Вызовется в презентере. */
     this._callback.editCloseClick = callback;
-
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#pointFormClickHandler);
     this.element.querySelector('.event--edit').addEventListener('submit', this.#pointFormClickHandler);
-    document.addEventListener('keydown', this.#pointFormClickHandler);
   };
 
   #pointFormClickHandler = (evt) => {
+    console.log('+Функция-оболочка pointFormClickHandler закрывающая форму и меняющая вид на точку сработала');
     evt.preventDefault();
     this._callback.editCloseClick();
   };
 
-  removeOpenPointFormListeners = () => {
-    this.element.querySelector('.event__rollup-btn').removeEventListener('click', this._callback.editCloseClick);
-    this.element.querySelector('.event--edit').removeEventListener('submit', this._callback.editCloseClick);
-    document.removeEventListener('keydown', this._callback.editCloseClick);
-  };
+  // removeOpenPointFormListeners = () => {
+  //   this.element.querySelector('.event__rollup-btn').removeEventListener('click', this._callback.editCloseClick);
+  //   this.element.querySelector('.event--edit').removeEventListener('submit', this._callback.editCloseClick);
+  //   document.removeEventListener('keydown', this._callback.editCloseClick);
+  // };
 }

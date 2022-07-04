@@ -16,29 +16,34 @@ export default class PointPresenter {
     this.#point = point;
     this.#pointComponent = new CreateItemPointView(point);
     this.#pointEditComponent = new CreateEditPointView(point);
-    this.#pointComponent.setEditOpenPointListeners(this.#pointFormEditOpen); /*Метод*/
+    this.#pointComponent.setEditOpenPointListeners(this.#pointFormOpen); /*Метод*/
+    this.#pointEditComponent.setOpenPointFormListeners(this.#closeForm); /*Метод*/
     render(this.#pointComponent, this.#container);
   }
 
-
   #replacePointToForm = () => { /*Функция изменяющая визуал точки на форму*/
     replace(this.#pointEditComponent, this.#pointComponent);/*Что вставляю, вместо чего*/ /*todo посмотреть метод*/
+    document.addEventListener('keydown', this.#pointsEscCloser);
   };
 
   #replaceFormToPoint = () => {/*Функция изменяющая визуал формы на точку*/
     replace(this.#pointComponent, this.#pointEditComponent); /*Что вставляю, вместо чего*/
+    document.removeEventListener('keydown', this.#pointsEscCloser);
   };
 
   #closeForm = () => { /*вот функция которая должна все общие действия по закрытию формы. */
-    this.#pointEditComponent.removeOpenPointFormListeners(); /*Метод*/
     this.#replaceFormToPoint();
-    this.#pointComponent.setEditOpenPointListeners(this.#pointFormEditOpen); /*Метод*/
   };
 
   /*ф откроет окно,удалит слушатель себя же, добавит слушатели действий уже на элементах формы.(Теперь из методов)*/
-  #pointFormEditOpen = () =>  {
-    this.#pointComponent.removeEditOpenClickHandler(); /*Метод*/
+  #pointFormOpen = () =>  {
     this.#replacePointToForm();
-    this.#pointEditComponent.setOpenPointFormListeners(this.#closeForm); /*Метод*/
+  }
+
+  #pointsEscCloser = (evt) => {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      evt.preventDefault();
+      this.#replaceFormToPoint();
+    }
   }
 }

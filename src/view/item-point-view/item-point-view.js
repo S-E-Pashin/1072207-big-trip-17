@@ -80,7 +80,7 @@ export default class CreateItemPointView extends AbstractView {
     this._callback.editOpenClick();
   };
 
-  removeEditOpenClickHandler = () => {
-    this.element.querySelector('.event__rollup-btn').removeEventListener('click', this._callback.editOpenClick);
-  };
+  // removeEditOpenClickHandler = () => {
+  //   this.element.querySelector('.event__rollup-btn').removeEventListener('click', this._callback.editOpenClick);
+  // };
 }
