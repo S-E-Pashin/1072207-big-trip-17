@@ -1,6 +1,6 @@
 import CreateItemPointView from "../view/item-point-view/item-point-view";
 import CreateEditPointView from "../view/edit-point-view/edit-point-view";
-import {render, replace} from "../framework/render";
+import {render, replace, remove} from "../framework/render";
 
 export default class PointPresenter {
   #container = null;
@@ -14,12 +14,39 @@ export default class PointPresenter {
 
   init = (point) => {
     this.#point = point;
+
+    const prevPointComponent = this.#pointComponent;
+    const prevPointEditComponent = this.#pointComponent;
+
     this.#pointComponent = new CreateItemPointView(point);
     this.#pointEditComponent = new CreateEditPointView(point);
+
     this.#pointComponent.setEditOpenPointListeners(this.#pointFormOpen); /*Метод*/
     this.#pointEditComponent.setOpenPointFormListeners(this.#closeForm); /*Метод*/
-    render(this.#pointComponent, this.#container);
+
+    if (prevPointComponent === null || prevPointEditComponent === null) {
+      render(this.#pointComponent, this.#container);
+      return;
+    }
+
+    if (this.#container.contains(prevPointComponent.element)) {
+      replace(this.#pointComponent, prevPointComponent)
+    }
+
+    if (this.#container.contains(prevPointEditComponent.element)) {
+      replace(this.#pointEditComponent, prevPointEditComponent);
+    }
+
+    remove(prevPointComponent);
+    remove(prevPointEditComponent);
   }
+
+
+  destroy = () => {
+    remove(this.#pointComponent);
+    remove(this.#pointEditComponent);
+  };
+
 
   #replacePointToForm = () => { /*Функция изменяющая визуал точки на форму*/
     replace(this.#pointEditComponent, this.#pointComponent);/*Что вставляю, вместо чего*/ /*todo посмотреть метод*/
